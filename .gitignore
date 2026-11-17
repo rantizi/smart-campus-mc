@@ -1,0 +1,31 @@
+# Course materials from the lecturer (not ours to redistribute)
+referensi/
+
+# Generated previews (scripts/preview_pages.py)
+output/*/laporan/preview/
+
+# Office lock/temp files
+~$*
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Android Studio (from Week 2)
+*.iml
+.gradle/
+local.properties
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+google-services.json

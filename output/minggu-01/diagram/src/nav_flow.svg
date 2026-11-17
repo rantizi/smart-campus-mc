@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="500" viewBox="0 0 940 500"
+     font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#111">
+  <!-- Navigation flow PaduKampus (single activity + Navigation Component).
+       Each screen node lists the FR codes it covers. Edit the <text> labels freely. -->
+  <style>
+    .node  { fill: #ffffff; stroke: #222; stroke-width: 1.4; }
+    .main  { fill: #f3f3f3; stroke: #222; stroke-width: 1.6; }
+    .ent   { fill: #ffffff; stroke: #222; stroke-width: 1.2; stroke-dasharray: 2 3; }
+    .grp   { fill: none; stroke: #777; stroke-width: 1.2; stroke-dasharray: 7 4; }
+    .t     { font-weight: bold; font-size: 17px; }
+    .fr    { font-size: 15px; font-weight: bold; fill: #333; }
+    .d     { font-size: 14px; fill: #333; }
+    .lbl   { font-size: 14px; fill: #333; font-style: italic; paint-order: stroke; stroke: #fff; stroke-width: 5px; }
+    .a     { stroke: #222; stroke-width: 1.4; fill: none; marker-end: url(#arr); }
+    .dash  { stroke: #222; stroke-width: 1.3; fill: none; stroke-dasharray: 6 4; marker-end: url(#arr); }
+    .dot   { stroke: #222; stroke-width: 1.3; fill: none; stroke-dasharray: 2 3; marker-end: url(#arr); }
+  </style>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#222"/>
+    </marker>
+  </defs>
+  <rect width="940" height="500" fill="#ffffff"/>
+
+  <!-- ===== Entry ===== -->
+  <rect class="node" x="25" y="20" width="150" height="44" rx="22"/>
+  <text x="100" y="47" text-anchor="middle" class="t">Buka aplikasi</text>
+
+  <polygon class="node" points="330,14 415,42 330,70 245,42"/>
+  <text x="330" y="47" text-anchor="middle" class="d">Sudah login?</text>
+
+  <rect class="node" x="560" y="17" width="200" height="52" rx="6"/>
+  <text x="660" y="40" text-anchor="middle" class="t">Login / Daftar</text>
+  <text x="660" y="60" text-anchor="middle" class="fr">FR-01</text>
+
+  <path class="a" d="M175,42 L243,42"/>
+  <path class="a" d="M415,42 L558,42"/>
+  <text x="487" y="35" text-anchor="middle" class="lbl">belum</text>
+
+  <!-- into Beranda -->
+  <path class="a" d="M330,70 L330,92 L112,92 L112,143"/>
+  <path class="a" d="M660,69 L660,92 L332,92"/>
+  <text x="322" y="86" text-anchor="end" class="lbl">sudah</text>
+  <text x="668" y="86" class="lbl">berhasil masuk</text>
+
+  <!-- ===== Bottom navigation group ===== -->
+  <rect class="grp" x="15" y="108" width="910" height="140" rx="8"/>
+  <text x="128" y="126" class="d">MainActivity: BottomNavigationView + NavHostFragment (5 tujuan utama)</text>
+
+  <rect class="main" x="35"  y="145" width="158" height="92" rx="6"/>
+  <text x="114" y="167" text-anchor="middle" class="t">Beranda</text>
+  <text x="114" y="187" text-anchor="middle" class="fr">FR-03, FR-10</text>
+  <text x="114" y="206" text-anchor="middle" class="d">jadwal hari ini,</text>
+  <text x="114" y="224" text-anchor="middle" class="d">kelas berikutnya, cuaca</text>
+
+  <rect class="main" x="215" y="145" width="158" height="92" rx="6"/>
+  <text x="294" y="167" text-anchor="middle" class="t">Jadwal</text>
+  <text x="294" y="187" text-anchor="middle" class="fr">FR-02, FR-04</text>
+  <text x="294" y="206" text-anchor="middle" class="d">jadwal mingguan</text>
+  <text x="294" y="224" text-anchor="middle" class="d">per hari</text>
+
+  <rect class="main" x="395" y="145" width="158" height="92" rx="6"/>
+  <text x="474" y="167" text-anchor="middle" class="t">Tugas</text>
+  <text x="474" y="187" text-anchor="middle" class="fr">FR-05, FR-06</text>
+  <text x="474" y="206" text-anchor="middle" class="d">daftar tugas</text>
+  <text x="474" y="224" text-anchor="middle" class="d">dan statusnya</text>
+
+  <rect class="main" x="575" y="145" width="158" height="92" rx="6"/>
+  <text x="654" y="167" text-anchor="middle" class="t">Peta</text>
+  <text x="654" y="187" text-anchor="middle" class="fr">FR-08, FR-09</text>
+  <text x="654" y="206" text-anchor="middle" class="d">penanda gedung,</text>
+  <text x="654" y="224" text-anchor="middle" class="d">cari ruangan</text>
+
+  <rect class="main" x="755" y="145" width="158" height="92" rx="6"/>
+  <text x="834" y="167" text-anchor="middle" class="t">Profil</text>
+  <text x="834" y="187" text-anchor="middle" class="fr">FR-01, FR-11</text>
+  <text x="834" y="206" text-anchor="middle" class="d">sinkronisasi,</text>
+  <text x="834" y="224" text-anchor="middle" class="d">pengaturan pengingat</text>
+
+  <!-- Logout -->
+  <path class="a" d="M860,145 L860,43 L762,43"/>
+  <text x="868" y="100" class="lbl">logout</text>
+
+  <!-- ===== Secondary screens ===== -->
+  <rect class="node" x="150" y="330" width="150" height="56" rx="6"/>
+  <text x="225" y="354" text-anchor="middle" class="t">Form Jadwal</text>
+  <text x="225" y="375" text-anchor="middle" class="fr">FR-02</text>
+
+  <rect class="node" x="315" y="330" width="160" height="56" rx="6"/>
+  <text x="395" y="354" text-anchor="middle" class="t">Form Perubahan</text>
+  <text x="395" y="375" text-anchor="middle" class="fr">FR-04</text>
+
+  <rect class="node" x="490" y="330" width="150" height="56" rx="6"/>
+  <text x="565" y="354" text-anchor="middle" class="t">Form Tugas</text>
+  <text x="565" y="375" text-anchor="middle" class="fr">FR-05, FR-06</text>
+
+  <rect class="node" x="655" y="330" width="170" height="56" rx="6"/>
+  <text x="740" y="354" text-anchor="middle" class="t">Detail Ruangan</text>
+  <text x="740" y="375" text-anchor="middle" class="fr">FR-09 (bottom sheet)</text>
+
+  <!-- Jadwal -> forms -->
+  <path class="a" d="M255,237 L230,328"/>
+  <path class="a" d="M330,237 L385,328"/>
+  <text x="226" y="321" text-anchor="end" class="lbl">tombol + / menu</text>
+  <!-- Tugas -> Form Tugas -->
+  <path class="a" d="M495,237 L545,328"/>
+  <!-- Peta -> Detail Ruangan -->
+  <path class="a" d="M690,237 L730,328"/>
+
+  <!-- Shortcuts from Beranda cards (dashed) -->
+  <path class="dash" d="M90,237 L90,272 L620,272 L620,239"/>
+  <text x="140" y="266" class="lbl">kartu kelas berikutnya → lokasi ruangan</text>
+  <path class="dash" d="M135,237 L135,298 L515,298 L515,328"/>
+  <text x="140" y="292" class="lbl">kartu tugas</text>
+
+  <!-- ===== Entry from notifications (dotted) ===== -->
+  <rect class="ent" x="20" y="420" width="190" height="50" rx="6"/>
+  <text x="115" y="441" text-anchor="middle" class="d">Notifikasi kelas</text>
+  <text x="115" y="460" text-anchor="middle" class="fr">FR-07</text>
+  <path class="dot" d="M60,420 L60,239"/>
+
+  <rect class="ent" x="470" y="420" width="190" height="50" rx="6"/>
+  <text x="565" y="441" text-anchor="middle" class="d">Notifikasi tugas</text>
+  <text x="565" y="460" text-anchor="middle" class="fr">FR-06</text>
+  <path class="dot" d="M565,420 L565,388"/>
+
+  <!-- Background sync note -->
+  <rect class="ent" x="700" y="420" width="225" height="50" rx="6"/>
+  <text x="812" y="441" text-anchor="middle" class="d">Sinkronisasi latar belakang</text>
+  <text x="812" y="460" text-anchor="middle" class="fr">FR-11 (tanpa layar)</text>
+
+  <!-- Legend -->
+  <g font-size="13" fill="#333">
+    <line x1="230" y1="430" x2="262" y2="430" stroke="#222" stroke-width="1.4"/>
+    <text x="270" y="434">navigasi / tombol</text>
+    <line x1="230" y1="450" x2="262" y2="450" stroke="#222" stroke-width="1.3" stroke-dasharray="6 4"/>
+    <text x="270" y="454">pintasan dari Beranda</text>
+    <line x1="230" y1="470" x2="262" y2="470" stroke="#222" stroke-width="1.3" stroke-dasharray="2 3"/>
+    <text x="270" y="474">masuk dari notifikasi</text>
+    <text x="230" y="494">Form ditutup dengan Simpan/Batal → kembali ke layar asal.</text>
+  </g>
+</svg>

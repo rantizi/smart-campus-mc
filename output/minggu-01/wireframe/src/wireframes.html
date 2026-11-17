@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>PaduKampus - Wireframe Low-Fidelity</title>
+<!--
+  Low-fidelity grayscale wireframes. One <section class="phone" id="wf-..."> per screen.
+  Frame = 360 x 640 px (1 px ~ 1 dp). Interactive elements are >= 48 px tall.
+  Rendered to PNG by scripts/render_assets.py (each #wf-* element + the whole #grid).
+  [ISI: ...] marks data that will be filled in during Week 2 (building names, rooms).
+-->
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: Arial, Helvetica, sans-serif; color: #222; }
+  #grid { display: grid; grid-template-columns: repeat(4, 360px); gap: 28px 24px; padding: 24px; width: max-content; }
+  figure { display: flex; flex-direction: column; align-items: center; }
+  figcaption { margin-top: 8px; font-size: 17px; text-align: center; }
+
+  .phone { width: 360px; height: 640px; border: 3px solid #222; border-radius: 18px; position: relative;
+           overflow: hidden; background: #fff; font-size: 18px; line-height: 1.25; }
+  .status { height: 18px; background: #d9d9d9; }
+  .appbar { height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 14px;
+            font-size: 22px; font-weight: bold; border-bottom: 2px solid #bbb; }
+  .appbar .right { margin-left: auto; width: 28px; height: 28px; border: 2px solid #555; border-radius: 50%; }
+  .content { padding: 10px 12px; }
+  .muted { color: #555; font-size: 16px; }
+  .b { font-weight: bold; }
+  .h { font-weight: bold; font-size: 18px; margin: 8px 0 6px; }
+  .card { border: 2px solid #888; border-radius: 8px; padding: 8px 10px; margin-bottom: 9px; background: #f3f3f3; }
+  .row { display: flex; align-items: center; gap: 8px; }
+  .row .grow { flex: 1; }
+  .btn { height: 48px; border: 2px solid #333; border-radius: 24px; display: flex; align-items: center;
+         justify-content: center; font-weight: bold; font-size: 17px; background: #fff; }
+  .btn.primary { background: #555; color: #fff; border-color: #555; }
+  .btn.small { height: 44px; margin-top: 6px; }
+  .btns { display: flex; gap: 16px; margin-top: 12px; }
+  .btns .btn { flex: 1; }
+  .label { font-size: 15px; color: #333; margin: 6px 0 3px; }
+  .field { height: 48px; border: 2px solid #888; border-radius: 6px; display: flex; align-items: center;
+           padding: 0 10px; color: #555; font-size: 17px; }
+  .field .dd { margin-left: auto; }
+  .err { border-color: #222; border-width: 3px; }
+  .errtxt { font-size: 14px; color: #222; font-style: italic; margin-top: 2px; }
+  .chips { display: flex; gap: 6px; margin-bottom: 9px; }
+  .chip { height: 40px; padding: 0 10px; border: 2px solid #888; border-radius: 20px; display: flex;
+          align-items: center; font-size: 16px; }
+  .chip.on { background: #555; color: #fff; border-color: #555; }
+  .tag { display: inline-block; border: 2px dashed #333; border-radius: 4px; padding: 0 5px; font-size: 14px; font-weight: bold; }
+  .box { width: 26px; height: 26px; border: 2px solid #555; border-radius: 5px; flex: none; }
+  .box.on { background: #555; }
+  .icon { width: 26px; height: 26px; border: 2px solid #555; border-radius: 50%; flex: none; }
+  .radio { display: flex; align-items: center; gap: 10px; height: 44px; font-size: 17px; }
+  .radio i { width: 22px; height: 22px; border: 2px solid #555; border-radius: 50%; }
+  .radio i.on { background: radial-gradient(#555 45%, #fff 50%); }
+  .bars { display: flex; align-items: flex-end; gap: 10px; height: 46px; margin-top: 4px; }
+  .bars div { flex: 1; background: #9a9a9a; }
+  .hours { display: flex; gap: 10px; font-size: 14px; color: #444; }
+  .hours span { flex: 1; text-align: center; }
+
+  .nav { position: absolute; bottom: 0; left: 0; right: 0; height: 64px; border-top: 2px solid #999;
+         display: flex; background: #ececec; }
+  .nav div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 14px; }
+  .nav i { width: 22px; height: 22px; border: 2px solid #555; border-radius: 5px; margin-bottom: 3px; }
+  .nav .on { font-weight: bold; }
+  .nav .on i { background: #555; }
+  .fab { position: absolute; right: 16px; bottom: 80px; width: 58px; height: 58px; border-radius: 16px;
+         background: #555; color: #fff; font-size: 34px; display: flex; align-items: center; justify-content: center; }
+  .menu { position: absolute; right: 18px; top: 262px; width: 200px; background: #fff; border: 2px solid #333;
+          border-radius: 6px; box-shadow: 3px 3px 0 #bbb; }
+  .menu div { height: 48px; display: flex; align-items: center; padding: 0 12px; font-size: 17px; border-bottom: 1px solid #ccc; }
+  .menu div:last-child { border-bottom: 0; }
+
+  /* map */
+  .map { position: absolute; top: 70px; left: 0; right: 0; bottom: 64px; background:
+         repeating-linear-gradient(0deg, #f1f1f1 0 38px, #e2e2e2 38px 40px),
+         repeating-linear-gradient(90deg, transparent 0 38px, #e2e2e2 38px 40px); }
+  .road { position: absolute; background: #c8c8c8; }
+  .bld { position: absolute; border: 2px solid #777; background: #d6d6d6; font-size: 13px; display: flex;
+         align-items: center; justify-content: center; text-align: center; }
+  .pin { position: absolute; width: 26px; height: 26px; background: #444; border-radius: 50% 50% 50% 0;
+         transform: rotate(-45deg); border: 2px solid #fff; }
+  .pin.sel { background: #000; width: 34px; height: 34px; }
+  .search { position: absolute; top: 80px; left: 12px; right: 12px; height: 48px; background: #fff; border: 2px solid #555;
+            border-radius: 24px; display: flex; align-items: center; padding: 0 14px; gap: 10px; color: #555; font-size: 17px; }
+  .zoom { position: absolute; right: 12px; top: 250px; width: 48px; border: 2px solid #555; background: #fff; border-radius: 8px; }
+  .zoom div { height: 48px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: bold; }
+  .zoom div:first-child { border-bottom: 1px solid #999; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 64px; background: #fff; border-top: 3px solid #333;
+           border-radius: 16px 16px 0 0; padding: 8px 14px 12px; }
+  .grab { width: 44px; height: 5px; background: #999; border-radius: 3px; margin: 0 auto 8px; }
+</style>
+</head>
+<body>
+<div id="grid">
+
+<!-- ============ 1. Beranda (FR-03, FR-07 link, FR-10) ============ -->
+<figure>
+<section class="phone" id="wf-01-beranda">
+  <div class="status"></div>
+  <div class="appbar">Beranda<span class="right"></span></div>
+  <div class="content">
+    <div class="muted">Selasa, 17 November</div>
+    <div class="card" style="margin-top:6px">
+      <div class="row"><span class="b grow">Cuaca kampus</span><span>xx°C · berawan</span></div>
+      <div class="muted">Peluang hujan per jam</div>
+      <div class="bars"><div style="height:20%"></div><div style="height:45%"></div><div style="height:85%"></div><div style="height:70%"></div><div style="height:35%"></div></div>
+      <div class="hours"><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span></div>
+    </div>
+    <div class="card">
+      <div class="muted">Kelas berikutnya · 13.00</div>
+      <div class="b">Mobile Computing</div>
+      <div>R. [ISI] · Gedung [ISI], lt. 2</div>
+      <div class="btn small">Lihat di peta</div>
+    </div>
+    <div class="h">Jadwal hari ini</div>
+    <div class="row" style="height:30px"><span class="b">07.30</span><span class="grow">Basis Data</span><span class="tag">pindah ruang</span></div>
+    <div class="row" style="height:30px"><span class="b">13.00</span><span class="grow">Mobile Computing</span></div>
+    <div class="h">Tugas terdekat</div>
+    <div class="row"><span class="box"></span><span class="grow">Laporan 1 · besok 23.59</span></div>
+  </div>
+  <div class="nav"><div class="on"><i></i>Beranda</div><div><i></i>Jadwal</div><div><i></i>Tugas</div><div><i></i>Peta</div><div><i></i>Profil</div></div>
+</section>
+<figcaption>a. Beranda (FR-03, FR-10)</figcaption>
+</figure>
+
+<!-- ============ 2. Jadwal (FR-02, FR-04 entry) ============ -->
+<figure>
+<section class="phone" id="wf-02-jadwal">
+  <div class="status"></div>
+  <div class="appbar">Jadwal</div>
+  <div class="content">
+    <div class="chips"><span class="chip">Sen</span><span class="chip on">Sel</span><span class="chip">Rab</span><span class="chip">Kam</span><span class="chip">Jum</span></div>
+    <div class="card">
+      <div class="row"><span class="b grow">Basis Data</span><span class="b">⋮</span></div>
+      <div>07.30–10.00 · R. [ISI]</div>
+      <div class="tag" style="margin-top:4px">17/11: pindah ke R. [ISI]</div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="b grow">Mobile Computing</span><span class="b">⋮</span></div>
+      <div>13.00–15.30 · R. [ISI]</div>
+      <div class="muted">Dosen: [nama dosen]</div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="b grow">[mata kuliah]</span><span class="b">⋮</span></div>
+      <div>15.30–17.10 · R. [ISI]</div>
+    </div>
+  </div>
+  <div class="menu"><div>Ubah jadwal</div><div>Catat perubahan</div><div>Hapus</div></div>
+  <div class="fab">+</div>
+  <div class="nav"><div><i></i>Beranda</div><div class="on"><i></i>Jadwal</div><div><i></i>Tugas</div><div><i></i>Peta</div><div><i></i>Profil</div></div>
+</section>
+<figcaption>b. Jadwal (FR-02, FR-04)</figcaption>
+</figure>
+
+<!-- ============ 3. Form Perubahan Jadwal (FR-04) ============ -->
+<figure>
+<section class="phone" id="wf-03-form-perubahan">
+  <div class="status"></div>
+  <div class="appbar">← Catat Perubahan</div>
+  <div class="content">
+    <div class="label">Jadwal</div>
+    <div class="field">Basis Data · Sel 07.30<span class="dd">▾</span></div>
+    <div class="label">Tanggal *</div>
+    <div class="field">17/11/2026<span class="dd">▦</span></div>
+    <div class="label">Jenis perubahan *</div>
+    <div class="radio"><i class="on"></i>Pindah ruangan</div>
+    <div class="radio"><i></i>Ganti jam</div>
+    <div class="radio"><i></i>Kelas batal</div>
+    <div class="label">Ruangan baru *</div>
+    <div class="field">Pilih ruangan<span class="dd">▾</span></div>
+    <div class="btns"><div class="btn">Batal</div><div class="btn primary">Simpan</div></div>
+  </div>
+</section>
+<figcaption>c. Form Perubahan Jadwal (FR-04)</figcaption>
+</figure>
+
+<!-- ============ 4. Tugas (FR-05, FR-06 indicator) ============ -->
+<figure>
+<section class="phone" id="wf-04-tugas">
+  <div class="status"></div>
+  <div class="appbar">Tugas</div>
+  <div class="content">
+    <div class="chips"><span class="chip on">Belum selesai</span><span class="chip">Selesai</span></div>
+    <div class="card">
+      <div class="row"><span class="box"></span><span class="b grow">Laporan 1 Mobcomp</span></div>
+      <div>Deadline: besok 23.59</div>
+      <div class="muted">Sumber: LMS · pengingat H-1</div>
+    </div>
+    <div class="card">
+      <div class="row"><span class="box"></span><span class="b grow">[judul tugas]</span></div>
+      <div>Deadline: Jumat 08.00</div>
+      <div class="muted">Sumber: grup WA</div>
+    </div>
+    <div class="card" style="border-width:3px;border-color:#333">
+      <div class="row"><span class="box"></span><span class="b grow">[judul tugas]</span><span class="tag">terlambat</span></div>
+      <div>Deadline: kemarin 23.59</div>
+      <div class="muted">Sumber: lisan di kelas</div>
+    </div>
+  </div>
+  <div class="fab">+</div>
+  <div class="nav"><div><i></i>Beranda</div><div><i></i>Jadwal</div><div class="on"><i></i>Tugas</div><div><i></i>Peta</div><div><i></i>Profil</div></div>
+</section>
+<figcaption>d. Tugas (FR-05)</figcaption>
+</figure>
+
+<!-- ============ 5. Form Tugas (FR-05, FR-06) ============ -->
+<figure>
+<section class="phone" id="wf-05-form-tugas">
+  <div class="status"></div>
+  <div class="appbar">← Tambah Tugas</div>
+  <div class="content">
+    <div class="label">Judul tugas *</div>
+    <div class="field err"></div>
+    <div class="errtxt">Judul wajib diisi</div>
+    <div class="label">Mata kuliah</div>
+    <div class="field">Mobile Computing<span class="dd">▾</span></div>
+    <div class="label">Deadline *</div>
+    <div class="row"><div class="field grow">24/11/2026<span class="dd">▦</span></div><div class="field" style="width:110px">23.59</div></div>
+    <div class="label">Sumber tugas</div>
+    <div class="field">LMS / Classroom / WA / lisan<span class="dd">▾</span></div>
+    <div class="label">Pengingat</div>
+    <div class="field">1 hari sebelum<span class="dd">▾</span></div>
+    <div class="btns"><div class="btn">Batal</div><div class="btn primary">Simpan</div></div>
+  </div>
+</section>
+<figcaption>e. Form Tugas (FR-05, FR-06)</figcaption>
+</figure>
+
+<!-- ============ 6. Peta + Detail Ruangan (FR-08, FR-09) ============ -->
+<figure>
+<section class="phone" id="wf-06-peta">
+  <div class="status"></div>
+  <div class="appbar">Peta Kampus</div>
+  <div class="map">
+    <div class="road" style="left:0;right:0;top:150px;height:18px"></div>
+    <div class="road" style="top:0;bottom:0;left:150px;width:18px"></div>
+    <div class="bld" style="left:30px;top:70px;width:100px;height:64px">Gedung<br>[ISI]</div>
+    <div class="bld" style="left:190px;top:66px;width:110px;height:70px">Gedung<br>[ISI]</div>
+    <div class="bld" style="left:40px;top:190px;width:90px;height:70px">Gedung<br>[ISI]</div>
+    <div class="bld" style="left:190px;top:190px;width:90px;height:60px">Gedung<br>[ISI]</div>
+    <div class="pin" style="left:68px;top:56px"></div>
+    <div class="pin sel" style="left:228px;top:48px"></div>
+    <div class="pin" style="left:72px;top:176px"></div>
+    <div class="pin" style="left:222px;top:176px"></div>
+  </div>
+  <div class="search"><span class="icon"></span>Cari ruangan, mis. [kode]</div>
+  <div class="zoom"><div>+</div><div>−</div></div>
+  <div class="sheet">
+    <div class="grab"></div>
+    <div class="b">Ruang [ISI]</div>
+    <div>Gedung [ISI] · Lantai [ISI]</div>
+    <div class="muted">Dipakai: Mobile Computing (Sel 13.00)</div>
+    <div class="btns" style="margin-top:8px"><div class="btn">Tutup</div><div class="btn primary">Pusatkan peta</div></div>
+  </div>
+  <div class="nav"><div><i></i>Beranda</div><div><i></i>Jadwal</div><div><i></i>Tugas</div><div class="on"><i></i>Peta</div><div><i></i>Profil</div></div>
+</section>
+<figcaption>f. Peta + detail ruangan (FR-08, FR-09)</figcaption>
+</figure>
+
+<!-- ============ 7. Login / Daftar (FR-01) ============ -->
+<figure>
+<section class="phone" id="wf-07-login">
+  <div class="status"></div>
+  <div class="content" style="padding:40px 22px">
+    <div style="width:84px;height:84px;border:3px solid #555;border-radius:20px;margin:0 auto 12px"></div>
+    <div style="text-align:center;font-size:26px;font-weight:bold">PaduKampus</div>
+    <div class="muted" style="text-align:center;margin-bottom:22px">Jadwal, tugas, dan ruangan dalam satu aplikasi</div>
+    <div class="label">Email</div>
+    <div class="field err">nama@contoh</div>
+    <div class="errtxt">Format email tidak valid</div>
+    <div class="label">Kata sandi</div>
+    <div class="field">••••••••<span class="dd">◉</span></div>
+    <div class="btn primary" style="margin-top:20px">Masuk</div>
+    <div style="text-align:center;margin-top:18px;height:48px;line-height:48px">Belum punya akun? <b>Daftar</b></div>
+  </div>
+</section>
+<figcaption>g. Login / Daftar (FR-01)</figcaption>
+</figure>
+
+<!-- ============ 8. Profil (FR-01 logout, FR-11, reminder settings FR-06/FR-07) ============ -->
+<figure>
+<section class="phone" id="wf-08-profil">
+  <div class="status"></div>
+  <div class="appbar">Profil</div>
+  <div class="content">
+    <div class="row" style="margin:4px 0 10px"><span style="width:52px;height:52px;border:2px solid #555;border-radius:50%"></span>
+      <div><div class="b">[Nama pengguna]</div><div class="muted">[email]</div></div></div>
+    <div class="card">
+      <div class="b">Sinkronisasi</div>
+      <div class="muted">Tersinkron · 10.15 · 0 menunggu</div>
+      <div class="btn small">Sinkronkan sekarang</div>
+    </div>
+    <div class="h">Pengingat</div>
+    <div class="row" style="height:48px"><span class="grow">Pengingat kelas</span><span class="field" style="width:130px">15 menit ▾</span></div>
+    <div class="row" style="height:56px"><span class="grow">Pengingat tugas</span><span class="field" style="width:130px">H-1 ▾</span></div>
+    <div class="row" style="height:40px"><span class="grow">Izin notifikasi</span><span class="b">Aktif</span></div>
+    <div class="btn" style="margin-top:18px">Keluar (logout)</div>
+  </div>
+  <div class="nav"><div><i></i>Beranda</div><div><i></i>Jadwal</div><div><i></i>Tugas</div><div><i></i>Peta</div><div class="on"><i></i>Profil</div></div>
+</section>
+<figcaption>h. Profil (FR-01, FR-07, FR-11)</figcaption>
+</figure>
+
+</div>
+</body>
+</html>

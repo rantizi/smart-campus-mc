@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="570" viewBox="0 0 900 570"
+     font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#111">
+  <!-- ERD / skema SQLite (Room) PaduKampus.
+       Header: table name (left) + FR codes that use the table (right).
+       Each table is one <g transform="translate(x,y)">. Rows: baseline y = 45 + 21*i.
+       Columns inside a row: key tag at x=8, column name at x=40, data type right-aligned at x=250. -->
+  <style>
+    .box  { fill: #ffffff; stroke: #222; stroke-width: 1.4; }
+    .hd   { fill: #e6e6e6; stroke: #222; stroke-width: 1.4; }
+    .tn   { font-weight: bold; font-size: 16px; }
+    .k    { font-weight: bold; font-size: 12px; }
+    .ty   { font-size: 14px; fill: #555; text-anchor: end; }
+    .sync { font-size: 14px; fill: #555; font-style: italic; }
+    .rel  { stroke: #222; stroke-width: 1.4; fill: none; }
+    .card { font-size: 14px; font-weight: bold; }
+    .note { font-size: 13px; fill: #333; }
+    .frs  { font-size: 13px; fill: #333; text-anchor: end; }
+  </style>
+  <rect width="900" height="570" fill="#ffffff"/>
+
+  <!-- ===== Relationships (drawn first, under the boxes) ===== -->
+  <!-- gedung 1 - N ruangan (ruangan.gedung_id) -->
+  <path class="rel" d="M150,161 L150,215"/>
+  <text x="158" y="177" class="card">1</text><text x="158" y="210" class="card">N</text>
+  <!-- ruangan 1 - N jadwal (jadwal.ruangan_id) -->
+  <path class="rel" d="M280,255 L296,255 L296,102 L320,102"/>
+  <text x="284" y="250" class="card">1</text><text x="306" y="97" class="card">N</text>
+  <!-- ruangan 1 - N perubahan_jadwal (perubahan_jadwal.ruangan_baru_id) -->
+  <path class="rel" d="M280,268 L307,268 L307,372 L320,372"/>
+  <text x="309" y="390" class="card">N</text>
+  <!-- jadwal 1 - N perubahan_jadwal (perubahan_jadwal.jadwal_id) -->
+  <path class="rel" d="M450,224 L450,290"/>
+  <text x="458" y="240" class="card">1</text><text x="458" y="285" class="card">N</text>
+  <!-- mata_kuliah 1 - N jadwal (jadwal.mata_kuliah_id) -->
+  <path class="rel" d="M620,60 L600,60 L600,81 L580,81"/>
+  <text x="606" y="54" class="card">1</text><text x="584" y="76" class="card">N</text>
+  <!-- mata_kuliah 1 - N tugas (tugas.mata_kuliah_id) -->
+  <path class="rel" d="M750,182 L750,255"/>
+  <text x="758" y="198" class="card">1</text><text x="758" y="250" class="card">N</text>
+
+  <!-- ===== Column A ===== -->
+  <g transform="translate(20,20)">
+    <rect class="box" width="260" height="141"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">gedung</text><text x="250" y="20" class="frs">FR-03, FR-08</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="40" y="66">nama</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="40" y="87">kode</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">latitude</text><text x="250" y="108" class="ty">REAL</text>
+    <text x="40" y="129">longitude</text><text x="250" y="129" class="ty">REAL</text>
+  </g>
+
+  <g transform="translate(20,215)">
+    <rect class="box" width="260" height="141"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">ruangan</text><text x="250" y="20" class="frs">FR-02, FR-03, FR-09</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="8" y="66"  class="k">FK</text><text x="40" y="66">gedung_id</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="40" y="87">kode</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">nama</text><text x="250" y="108" class="ty">TEXT</text>
+    <text x="40" y="129">lantai</text><text x="250" y="129" class="ty">INTEGER</text>
+  </g>
+
+  <g transform="translate(20,410)">
+    <rect class="box" width="260" height="141"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">cache_cuaca</text><text x="250" y="20" class="frs">FR-10</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="40" y="66">suhu</text><text x="250" y="66" class="ty">REAL</text>
+    <text x="40" y="87">kode_cuaca</text><text x="250" y="87" class="ty">INTEGER</text>
+    <text x="40" y="108">hujan_per_jam</text><text x="250" y="108" class="ty">TEXT</text>
+    <text x="40" y="129">diambil_pada</text><text x="250" y="129" class="ty">INTEGER</text>
+  </g>
+
+  <!-- ===== Column B ===== -->
+  <g transform="translate(320,20)">
+    <rect class="box" width="260" height="204"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">jadwal</text><text x="250" y="20" class="frs">FR-02, FR-03, FR-07</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="8" y="66"  class="k">FK</text><text x="40" y="66">mata_kuliah_id</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="8" y="87"  class="k">FK</text><text x="40" y="87">ruangan_id</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">hari</text><text x="250" y="108" class="ty">INTEGER</text>
+    <text x="40" y="129">jam_mulai</text><text x="250" y="129" class="ty">TEXT</text>
+    <text x="40" y="150">jam_selesai</text><text x="250" y="150" class="ty">TEXT</text>
+    <text x="40" y="171">pengingat_menit</text><text x="250" y="171" class="ty">INTEGER</text>
+    <text x="40" y="192" class="sync">+ kolom sinkronisasi*</text>
+  </g>
+
+  <g transform="translate(320,290)">
+    <rect class="box" width="260" height="225"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">perubahan_jadwal</text><text x="250" y="20" class="frs">FR-03, FR-04</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="8" y="66"  class="k">FK</text><text x="40" y="66">jadwal_id</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="8" y="87"  class="k">FK</text><text x="40" y="87">ruangan_baru_id</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">tanggal</text><text x="250" y="108" class="ty">TEXT</text>
+    <text x="40" y="129">jenis</text><text x="250" y="129" class="ty">TEXT</text>
+    <text x="40" y="150">jam_mulai_baru</text><text x="250" y="150" class="ty">TEXT</text>
+    <text x="40" y="171">jam_selesai_baru</text><text x="250" y="171" class="ty">TEXT</text>
+    <text x="40" y="192">catatan</text><text x="250" y="192" class="ty">TEXT</text>
+    <text x="40" y="213" class="sync">+ kolom sinkronisasi*</text>
+  </g>
+
+  <!-- ===== Column C ===== -->
+  <g transform="translate(620,20)">
+    <rect class="box" width="260" height="162"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">mata_kuliah</text><text x="250" y="20" class="frs">FR-02, FR-05</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="40" y="66">nama</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="40" y="87">kode</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">dosen</text><text x="250" y="108" class="ty">TEXT</text>
+    <text x="40" y="129">sks</text><text x="250" y="129" class="ty">INTEGER</text>
+    <text x="40" y="150" class="sync">+ kolom sinkronisasi*</text>
+  </g>
+
+  <g transform="translate(620,255)">
+    <rect class="box" width="260" height="225"/><rect class="hd" width="260" height="30"/>
+    <text x="10" y="21" class="tn">tugas</text><text x="250" y="20" class="frs">FR-05, FR-06</text>
+    <text x="8" y="45"  class="k">PK</text><text x="40" y="45">id</text><text x="250" y="45" class="ty">TEXT</text>
+    <text x="8" y="66"  class="k">FK</text><text x="40" y="66">mata_kuliah_id</text><text x="250" y="66" class="ty">TEXT</text>
+    <text x="40" y="87">judul</text><text x="250" y="87" class="ty">TEXT</text>
+    <text x="40" y="108">deskripsi</text><text x="250" y="108" class="ty">TEXT</text>
+    <text x="40" y="129">deadline</text><text x="250" y="129" class="ty">INTEGER</text>
+    <text x="40" y="150">sumber</text><text x="250" y="150" class="ty">TEXT</text>
+    <text x="40" y="171">selesai</text><text x="250" y="171" class="ty">INTEGER</text>
+    <text x="40" y="192">pengingat_menit</text><text x="250" y="192" class="ty">INTEGER</text>
+    <text x="40" y="213" class="sync">+ kolom sinkronisasi*</text>
+  </g>
+
+  <!-- ===== Legend ===== -->
+  <g transform="translate(620,500)" class="note">
+    <text x="0" y="0">* updated_at INTEGER, sync_status TEXT,</text>
+    <text x="10" y="17">is_deleted INTEGER</text>
+    <text x="0" y="38">PK/FK bertipe TEXT (UUID)</text>
+    <text x="0" y="55">1 — N: relasi satu-ke-banyak</text>
+    <text x="-300" y="40">FR-xx = kebutuhan pemakai tabel</text>
+  </g>
+</svg>

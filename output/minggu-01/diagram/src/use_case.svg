@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="545" viewBox="0 0 900 545"
+     font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#111">
+  <!-- Use case diagram PaduKampus. Edit labels directly in the <text> elements. -->
+  <style>
+    .uc   { fill: #ffffff; stroke: #222; stroke-width: 1.4; }
+    .ln   { stroke: #444; stroke-width: 1.1; fill: none; }
+    .ext  { fill: #f2f2f2; stroke: #222; stroke-width: 1.2; }
+    .fr   { font-weight: bold; }
+    .note { font-size: 13px; fill: #444; }
+  </style>
+  <defs>
+    <marker id="open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#333" stroke-width="1.4"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="545" fill="#ffffff"/>
+
+  <!-- System boundary -->
+  <rect x="150" y="16" width="490" height="512" fill="none" stroke="#222" stroke-width="1.5"/>
+  <text x="395" y="40" text-anchor="middle" font-weight="bold" font-size="16">Sistem PaduKampus</text>
+
+  <!-- Primary actor -->
+  <g stroke="#222" stroke-width="1.8" fill="none">
+    <circle cx="70" cy="252" r="13"/>
+    <line x1="70" y1="265" x2="70" y2="308"/>
+    <line x1="44" y1="280" x2="96" y2="280"/>
+    <line x1="70" y1="308" x2="50" y2="342"/>
+    <line x1="70" y1="308" x2="90" y2="342"/>
+  </g>
+  <text x="70" y="364" text-anchor="middle" font-weight="bold">Mahasiswa</text>
+
+  <!-- Associations: Mahasiswa -> every use case (left edge of ellipse at x=195) -->
+  <g class="ln">
+    <line x1="98" y1="286" x2="195" y2="75"/>
+    <line x1="98" y1="286" x2="195" y2="117"/>
+    <line x1="98" y1="286" x2="195" y2="159"/>
+    <line x1="98" y1="286" x2="195" y2="201"/>
+    <line x1="98" y1="286" x2="195" y2="243"/>
+    <line x1="98" y1="286" x2="195" y2="285"/>
+    <line x1="98" y1="286" x2="195" y2="327"/>
+    <line x1="98" y1="286" x2="195" y2="369"/>
+    <line x1="98" y1="286" x2="195" y2="411"/>
+    <line x1="98" y1="286" x2="195" y2="453"/>
+    <line x1="98" y1="286" x2="195" y2="495"/>
+  </g>
+
+  <!-- Use cases: centre x=395, rx=200, pitch 42 px -->
+  <g>
+    <ellipse class="uc" cx="395" cy="75"  rx="200" ry="17"/>
+    <text x="395" y="80"  text-anchor="middle"><tspan class="fr">FR-01</tspan> Daftar, login, dan logout</text>
+    <ellipse class="uc" cx="395" cy="117" rx="200" ry="17"/>
+    <text x="395" y="122" text-anchor="middle"><tspan class="fr">FR-02</tspan> Kelola mata kuliah dan jadwal</text>
+    <ellipse class="uc" cx="395" cy="159" rx="200" ry="17"/>
+    <text x="395" y="164" text-anchor="middle"><tspan class="fr">FR-03</tspan> Lihat jadwal hari ini &amp; kelas berikutnya</text>
+    <ellipse class="uc" cx="395" cy="201" rx="200" ry="17"/>
+    <text x="395" y="206" text-anchor="middle"><tspan class="fr">FR-04</tspan> Catat perubahan jadwal</text>
+    <ellipse class="uc" cx="395" cy="243" rx="200" ry="17"/>
+    <text x="395" y="248" text-anchor="middle"><tspan class="fr">FR-05</tspan> Kelola tugas</text>
+    <ellipse class="uc" cx="395" cy="285" rx="200" ry="17"/>
+    <text x="395" y="290" text-anchor="middle"><tspan class="fr">FR-06</tspan> Terima pengingat deadline tugas</text>
+    <ellipse class="uc" cx="395" cy="327" rx="200" ry="17"/>
+    <text x="395" y="332" text-anchor="middle"><tspan class="fr">FR-07</tspan> Terima pengingat sebelum kelas</text>
+    <ellipse class="uc" cx="395" cy="369" rx="200" ry="17"/>
+    <text x="395" y="374" text-anchor="middle"><tspan class="fr">FR-08</tspan> Lihat peta kampus</text>
+    <ellipse class="uc" cx="395" cy="411" rx="200" ry="17"/>
+    <text x="395" y="416" text-anchor="middle"><tspan class="fr">FR-09</tspan> Cari ruangan</text>
+    <ellipse class="uc" cx="395" cy="453" rx="200" ry="17"/>
+    <text x="395" y="458" text-anchor="middle"><tspan class="fr">FR-10</tspan> Lihat cuaca dan peluang hujan</text>
+    <ellipse class="uc" cx="395" cy="495" rx="200" ry="17"/>
+    <text x="395" y="500" text-anchor="middle"><tspan class="fr">FR-11</tspan> Sinkronisasi data ke cloud</text>
+  </g>
+
+  <!-- <<extend>>: Cari ruangan extends Lihat peta kampus -->
+  <path d="M 520 398 C 548 390, 548 386, 526 384" class="ln" stroke-dasharray="5 4" marker-end="url(#open)"/>
+  <text x="552" y="396" class="note">«extend»</text>
+
+  <!-- External system actors -->
+  <text x="785" y="40" text-anchor="middle" class="note">Aktor sistem eksternal</text>
+  <g>
+    <rect class="ext" x="680" y="59"  width="210" height="32"/>
+    <text x="785" y="80"  text-anchor="middle">Firebase Authentication</text>
+    <rect class="ext" x="680" y="290" width="210" height="32"/>
+    <text x="785" y="311" text-anchor="middle">Penjadwal notifikasi Android</text>
+    <rect class="ext" x="680" y="353" width="210" height="32"/>
+    <text x="785" y="374" text-anchor="middle">OpenStreetMap (tile peta)</text>
+    <rect class="ext" x="680" y="437" width="210" height="32"/>
+    <text x="785" y="458" text-anchor="middle">Open-Meteo API</text>
+    <rect class="ext" x="680" y="479" width="210" height="32"/>
+    <text x="785" y="500" text-anchor="middle">Cloud Firestore</text>
+  </g>
+  <g class="ln">
+    <line x1="595" y1="75"  x2="680" y2="75"/>
+    <line x1="595" y1="285" x2="680" y2="300"/>
+    <line x1="595" y1="327" x2="680" y2="312"/>
+    <line x1="595" y1="369" x2="680" y2="369"/>
+    <line x1="595" y1="453" x2="680" y2="453"/>
+    <line x1="595" y1="495" x2="680" y2="495"/>
+  </g>
+</svg>
