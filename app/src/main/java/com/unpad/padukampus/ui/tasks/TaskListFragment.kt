@@ -44,7 +44,8 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list) {
                     adapter.submitList(state.tugas)
                     ui.empty.isVisible = !state.loading && state.tugas.isEmpty()
                     ui.status.text =
-                        state.error ?: if (state.loading) getString(R.string.task_loading) else ""
+                        state.error?.asString(requireContext())
+                            ?: if (state.loading) getString(R.string.task_loading) else ""
                     ui.filterAll.isEnabled = state.filter != TugasFilter.SEMUA
                     ui.filterPending.isEnabled = state.filter != TugasFilter.BELUM_SELESAI
                     ui.filterDone.isEnabled = state.filter != TugasFilter.SELESAI

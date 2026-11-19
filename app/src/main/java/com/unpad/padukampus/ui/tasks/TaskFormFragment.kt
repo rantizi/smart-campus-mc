@@ -104,7 +104,8 @@ class TaskFormFragment : Fragment(R.layout.fragment_task_form) {
                         )
                         .forEach { it.isEnabled = enabled }
                     ui.status.text =
-                        state.error ?: if (state.loading) getString(R.string.task_loading) else ""
+                        state.error?.asString(requireContext())
+                            ?: if (state.loading) getString(R.string.task_loading) else ""
                     ui.notificationStatus.text =
                         getString(
                             if (state.notificationsEnabled) R.string.task_notifications_on

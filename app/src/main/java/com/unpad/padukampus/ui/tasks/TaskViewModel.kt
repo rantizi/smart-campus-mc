@@ -3,6 +3,8 @@ package com.unpad.padukampus.ui.tasks
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.unpad.padukampus.R
+import com.unpad.padukampus.core.common.UiText
 import com.unpad.padukampus.core.util.DateTimeUtils
 import com.unpad.padukampus.data.repository.*
 import java.time.format.DateTimeParseException
@@ -18,7 +20,7 @@ class TaskViewModel(
     private val taskId: String = "",
 ) : ViewModel() {
     private val filter = savedState.getStateFlow("task_filter", TugasFilter.SEMUA.name)
-    private val mutationError = MutableStateFlow<String?>(null)
+    private val mutationError = MutableStateFlow<UiText?>(null)
     private val taskList =
         filter.flatMapLatest { value ->
             val selected = TugasFilter.valueOf(value)
@@ -31,7 +33,7 @@ class TaskViewModel(
                         TaskUiState(
                             loading = false,
                             filter = selected,
-                            error = "Daftar tugas belum dapat dibaca",
+                            error = UiText.Res(R.string.error_tasks_read),
                         )
                     )
                 }
@@ -78,8 +80,7 @@ class TaskViewModel(
                         _formState.value.copy(
                             loading = false,
                             unavailable = true,
-                            error =
-                                "Tugas telah dihapus atau belum dapat dibaca. Kembali ke daftar tugas.",
+                            error = UiText.Res(R.string.error_task_unavailable),
                         )
                 }
             }
@@ -108,9 +109,15 @@ class TaskViewModel(
         _formState.value = _formState.value.copy(saving = true, error = null)
         viewModelScope.launch {
             try {
-                val minutes =
-                    draft.pengingatMenit.toIntOrNull()
-                        ?: throw IllegalArgumentException("Menit pengingat harus berupa angka")
+                val minutes = draft.pengingatMenit.toIntOrNull()
+                if (minutes == null) {
+                    _formState.value =
+                        _formState.value.copy(
+                            saving = false,
+                            error = UiText.Res(R.string.error_reminder_number),
+                        )
+                    return@launch
+                }
                 val input =
                     TugasInput(
                         taskId.takeIf { it.isNotEmpty() },
@@ -129,13 +136,20 @@ class TaskViewModel(
                 _formState.value =
                     _formState.value.copy(
                         saving = false,
-                        error = "Tanggal tidak valid. Gunakan yyyy-MM-dd HH:mm dalam WIB.",
+                        error = UiText.Res(R.string.error_deadline_format),
                     )
             } catch (error: IllegalArgumentException) {
-                _formState.value = _formState.value.copy(saving = false, error = error.message)
+                _formState.value =
+                    _formState.value.copy(
+                        saving = false,
+                        error = UiText.from(error, R.string.error_task_save),
+                    )
             } catch (_: Exception) {
                 _formState.value =
-                    _formState.value.copy(saving = false, error = "Tugas belum dapat disimpan")
+                    _formState.value.copy(
+                        saving = false,
+                        error = UiText.Res(R.string.error_task_save),
+                    )
             }
         }
     }
@@ -162,7 +176,7 @@ class TaskViewModel(
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                mutationError.value = "Perubahan tugas belum dapat disimpan"
+                mutationError.value = UiText.Res(R.string.error_task_change)
             }
         }
     }

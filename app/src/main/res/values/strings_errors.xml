@@ -1,0 +1,28 @@
+<resources>
+    <!-- Pesan galat/status yang ditampilkan ViewModel melalui UiText.Res -->
+    <string name="error_tasks_read">Daftar tugas belum dapat dibaca</string>
+    <string name="error_task_unavailable">Tugas telah dihapus atau belum dapat dibaca. Kembali ke daftar tugas.</string>
+    <string name="error_reminder_number">Menit pengingat harus berupa angka</string>
+    <string name="error_deadline_format">Tanggal tidak valid. Gunakan yyyy-MM-dd HH:mm dalam WIB.</string>
+    <string name="error_task_save">Tugas belum dapat disimpan</string>
+    <string name="error_task_change">Perubahan tugas belum dapat disimpan</string>
+    <string name="error_schedule_read">Jadwal belum dapat dibaca</string>
+    <string name="error_schedule_delete">Jadwal belum dapat dihapus</string>
+    <string name="error_schedule_unavailable">Jadwal telah dihapus atau belum dapat dibaca.</string>
+    <string name="error_schedule_save">Jadwal belum dapat disimpan</string>
+    <string name="error_credits_number">SKS harus berupa angka</string>
+    <string name="error_rooms_read">Data ruangan belum dapat dibaca</string>
+    <string name="error_change_pick_schedule">Pilih jadwal terlebih dahulu</string>
+    <string name="error_change_date">Tanggal tidak valid. Gunakan yyyy-MM-dd.</string>
+    <string name="error_change_save">Perubahan belum dapat disimpan</string>
+    <string name="error_change_delete">Perubahan belum dapat dihapus</string>
+    <string name="error_campus_read">Data kampus belum dapat dibaca</string>
+    <string name="error_local_read">Data lokal belum dapat dibaca</string>
+    <string name="error_local_schedule_read">Jadwal lokal belum dapat dibaca</string>
+    <string name="error_need_coordinates">Isi koordinat kampus pada Profil terlebih dahulu.</string>
+    <string name="error_weather_refresh">Cuaca belum dapat diperbarui</string>
+    <string name="error_settings_read">Pengaturan belum dapat dibaca</string>
+    <string name="error_coordinates_number">Latitude dan longitude harus berupa angka</string>
+    <string name="error_coordinates_save">Koordinat belum dapat disimpan</string>
+    <string name="profile_coordinates_saved">Koordinat tersimpan. Cuaca dapat diperbarui dari Beranda.</string>
+</resources>
