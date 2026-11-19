@@ -19,9 +19,10 @@ for domain in ['Kampus','Jadwal','Tugas','Cuaca']:
     required.add(f'data/local/dao/{domain}Dao.kt'); required.add(f'data/repository/{domain}Repository.kt')
 for feature, names in {
     'home':['HomeFragment','HomeViewModel','HomeUiState'],
-    'schedule':['ScheduleFragment','ScheduleViewModel','ScheduleUiState','ScheduleAdapter'],
+    'schedule':['ScheduleFragment','ScheduleViewModel','ScheduleUiState','ScheduleAdapter',
+                 'ScheduleFormFragment','ScheduleFormViewModel','ChangeFormFragment','ChangeFormViewModel'],
     'tasks':['TaskListFragment','TaskFormFragment','TaskViewModel','TaskUiState','TaskAdapter'],
-    'map':['MapFragment','MapViewModel','MapUiState'],
+    'map':['MapFragment','MapViewModel','MapUiState','RoomAdapter'],
     'profile':['ProfileFragment','ProfileViewModel','ProfileUiState']
 }.items():
     required.update(f'ui/{feature}/{name}.kt' for name in names)
@@ -42,7 +43,7 @@ android = '{http://schemas.android.com/apk/res/android}'
 graph = ET.parse(MAIN/'res/navigation/nav_graph.xml').getroot()
 destinations = graph.findall('fragment')
 ids = {node.attrib[android+'id'].split('/')[-1] for node in destinations}
-assert len(destinations) == 6
+assert len(destinations) == 8  # 5 menu utama + Form Tugas, Form Jadwal, Form Perubahan
 menu = ET.parse(MAIN/'res/menu/bottom_navigation.xml').getroot()
 assert len(menu) == 5 and all(node.attrib[android+'id'].split('/')[-1] in ids for node in menu)
 for node in destinations:
@@ -50,6 +51,15 @@ for node in destinations:
 task_form = (PACKAGE/'ui/tasks/TaskFormFragment.kt').read_text()
 task_list = (PACKAGE/'ui/tasks/TaskListFragment.kt').read_text()
 assert 'by navArgs()' in task_form and 'TaskListFragmentDirections' in task_list
+schedule_list = (PACKAGE/'ui/schedule/ScheduleFragment.kt').read_text()
+assert 'ScheduleFragmentDirections' in schedule_list
+for form in ['ScheduleFormFragment', 'ChangeFormFragment']:
+    assert 'by navArgs()' in (PACKAGE/f'ui/schedule/{form}.kt').read_text(), form
+# Laporan 1 Tabel 5: palet dan tema terang; Tabel 6: peta osmdroid.
+colors = (MAIN/'res/values/colors.xml').read_text().upper()
+for value in ['#1A5C8A', '#F2B705', '#B3261E', '#2E7D32', '#F6F8FB', '#5F6368']:
+    assert value in colors, value
+assert 'Theme.MaterialComponents.Light' in (MAIN/'res/values/themes.xml').read_text()
 for path in (PACKAGE/'ui').rglob('*.kt'):
     assert not re.search(r'bundleOf\(|arguments\??\.get|putString\("taskId"', path.read_text()), path
 build = (ROOT/'app/build.gradle.kts').read_text()
@@ -64,9 +74,10 @@ for plugin, version in {
     assert f'id("{plugin}") version "{version}"' in plugins
 for dependency in ['androidx.room:room-runtime:2.7.1', 'androidx.room:room-compiler:2.7.1',
     'com.squareup.retrofit2:retrofit:2.11.0', 'com.squareup.retrofit2:converter-gson:2.11.0',
-    'androidx.navigation:navigation-fragment-ktx:2.8.9', 'androidx.work:work-runtime-ktx:2.10.0']:
+    'androidx.navigation:navigation-fragment-ktx:2.8.9', 'androidx.work:work-runtime-ktx:2.10.0',
+    'org.osmdroid:osmdroid-android:6.1.20']:
     assert dependency in build
 wrapper = (ROOT/'gradle/wrapper/gradle-wrapper.properties').read_text()
 assert 'gradle-8.11.1-bin.zip' in wrapper and 'distributionSha256Sum=' in wrapper
 assert 'fallbackToDestructiveMigration' not in (PACKAGE/'di/AppContainer.kt').read_text()
-print(f'PASS: {len(required)} required files, seven entities, MVVM boundaries, six destinations, Safe Args, XML and build baseline.')
+print(f'PASS: {len(required)} required files, seven entities, MVVM boundaries, eight destinations, Safe Args, XML and build baseline.')
