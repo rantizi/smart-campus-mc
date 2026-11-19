@@ -1,0 +1,8 @@
+<resources>
+    <string name="profile_title">Profil dan pengaturan</string>
+    <string name="profile_local">Mode lokal. Login dan sinkronisasi Firebase belum tersedia. Isi koordinat kampus yang telah diverifikasi; aplikasi tidak meminta lokasi perangkat.</string>
+    <string name="profile_latitude">Latitude kampus</string>
+    <string name="profile_longitude">Longitude kampus</string>
+    <string name="profile_save">Simpan koordinat</string>
+    <string name="profile_sync">Status sinkronisasi cloud</string>
+</resources>

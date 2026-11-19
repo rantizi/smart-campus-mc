@@ -1,0 +1,10 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/schedule_title" android:textSize="22sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/date" android:textSize="16sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
+<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/previous" android:minHeight="48dp" android:text="@string/schedule_previous" />
+<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/next" android:minHeight="48dp" android:text="@string/schedule_next" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/schedule_scope" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/status" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/empty" android:text="@string/schedule_empty" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<androidx.recyclerview.widget.RecyclerView android:id="@+id/schedules" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+</LinearLayout>

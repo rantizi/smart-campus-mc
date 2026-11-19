@@ -1,0 +1,10 @@
+<resources>
+    <string name="schedule_time_range">%1$s–%2$s WIB</string>
+    <string name="schedule_title">Jadwal kuliah</string>
+    <string name="schedule_previous">Hari sebelumnya</string>
+    <string name="schedule_next">Hari berikutnya</string>
+    <string name="schedule_loading">Memuat jadwal…</string>
+    <string name="schedule_empty">Belum ada jadwal untuk tanggal ini.</string>
+    <string name="schedule_cancelled">Kelas dibatalkan</string>
+    <string name="schedule_scope">Jadwal dan perubahan tanggal dibaca dari data lokal. Form pengelolaan jadwal masih dalam pengembangan.</string>
+</resources>

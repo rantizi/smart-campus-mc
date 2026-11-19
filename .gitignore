@@ -3,6 +3,7 @@ referensi/
 
 # Generated previews (scripts/preview_pages.py)
 output/*/laporan/preview/
+output/minggu-02/qa/
 
 # Office lock/temp files
 ~$*

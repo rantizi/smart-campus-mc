@@ -1,0 +1,8 @@
+<resources>
+    <string name="map_title">Peta kampus</string>
+    <string name="map_scope">Peta digital dan penanda gedung belum diintegrasikan. Daftar gedung dan pencarian ruangan memakai data lokal yang telah diverifikasi.</string>
+    <string name="map_search">Cari kode atau nama ruangan</string>
+    <string name="map_loading">Memuat data kampus…</string>
+    <string name="map_no_buildings">Belum ada data gedung terverifikasi.</string>
+    <string name="map_no_rooms">Tidak ada ruangan yang sesuai.</string>
+</resources>

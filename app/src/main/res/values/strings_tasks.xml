@@ -1,0 +1,26 @@
+<resources>
+    <string name="task_course_source">%1$s · %2$s</string>
+    <string name="task_title">Tugas kuliah</string>
+    <string name="task_form_title">Form tugas</string>
+    <string name="task_add">Tambah tugas</string>
+    <string name="task_all">Semua</string>
+    <string name="task_pending">Belum selesai</string>
+    <string name="task_done">Selesai</string>
+    <string name="task_delete">Hapus</string>
+    <string name="task_delete_named">Hapus tugas %1$s</string>
+    <string name="task_cancel">Batal</string>
+    <string name="task_delete_confirm">Hapus tugas ini dari daftar?</string>
+    <string name="task_loading">Memuat tugas…</string>
+    <string name="task_empty">Tidak ada tugas pada filter ini.</string>
+    <string name="task_course">Nama mata kuliah</string>
+    <string name="task_name">Judul tugas</string>
+    <string name="task_description">Deskripsi tugas</string>
+    <string name="task_deadline">Deadline yyyy-MM-dd HH:mm dalam WIB</string>
+    <string name="task_reminder">Menit pengingat sebelum deadline</string>
+    <string name="task_source">Sumber tugas</string>
+    <string name="task_notification_permission">Atur izin notifikasi</string>
+    <string name="task_notifications_on">Izin notifikasi aktif. Waktu tampil pengingat dapat dipengaruhi perangkat.</string>
+    <string name="task_notifications_off">Notifikasi belum diizinkan. Tugas tetap dapat disimpan.</string>
+    <string name="task_save">Simpan</string>
+    <string-array name="task_sources"><item>LAINNYA</item><item>LMS</item><item>CLASSROOM</item><item>WA</item><item>LISAN</item></string-array>
+</resources>

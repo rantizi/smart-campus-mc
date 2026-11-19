@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PaduKampus</string>
+    <string name="beranda">Beranda</string>
+    <string name="jadwal">Jadwal</string>
+    <string name="tugas">Tugas</string>
+    <string name="peta">Peta</string>
+    <string name="profil">Profil</string>
+</resources>

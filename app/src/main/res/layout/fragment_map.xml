@@ -1,0 +1,10 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/map_title" android:textSize="22sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/map_scope" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/map_search"><com.google.android.material.textfield.TextInputEditText android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/search" android:minHeight="48dp" android:inputType="textCapSentences" android:importantForAutofill="no" /></com.google.android.material.textfield.TextInputLayout>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/status" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buildings" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/rooms" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+</LinearLayout>
+</ScrollView>

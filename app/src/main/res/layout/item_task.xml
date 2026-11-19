@@ -1,0 +1,7 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/title" android:textSize="16sp" android:minHeight="48dp" android:gravity="center_vertical" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/course" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/deadline" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
+<CheckBox android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/done" android:minHeight="48dp" android:text="@string/task_done" />
+<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/remove" android:minHeight="48dp" android:text="@string/task_delete" />
+</LinearLayout>
