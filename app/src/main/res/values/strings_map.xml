@@ -1,8 +1,13 @@
 <resources>
     <string name="map_title">Peta kampus</string>
-    <string name="map_scope">Peta digital dan penanda gedung belum diintegrasikan. Daftar gedung dan pencarian ruangan memakai data lokal yang telah diverifikasi.</string>
     <string name="map_search">Cari kode atau nama ruangan</string>
     <string name="map_loading">Memuat data kampus…</string>
-    <string name="map_no_buildings">Belum ada data gedung terverifikasi.</string>
+    <string name="map_no_buildings">Belum ada data gedung terverifikasi. Penanda gedung muncul setelah data gedung diisi.</string>
     <string name="map_no_rooms">Tidak ada ruangan yang sesuai.</string>
+    <string name="map_room_item">%1$s · %2$s · Lantai %3$d</string>
+    <string name="map_room_title">Ruang %1$s</string>
+    <string name="map_room_detail">%1$s (%2$s) · Lantai %3$d</string>
+    <string name="map_close">Tutup</string>
+    <string name="map_center">Pusatkan peta</string>
+    <string name="map_tiles_offline">Tile peta butuh internet; info gedung dan ruangan tetap tersedia luring.</string>
 </resources>
