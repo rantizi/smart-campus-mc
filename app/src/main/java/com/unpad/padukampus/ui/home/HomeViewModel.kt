@@ -2,7 +2,9 @@ package com.unpad.padukampus.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.unpad.padukampus.R
 import com.unpad.padukampus.core.common.*
+import com.unpad.padukampus.core.common.UiText
 import com.unpad.padukampus.core.util.DateTimeUtils
 import com.unpad.padukampus.core.util.NetworkMonitor
 import com.unpad.padukampus.data.repository.*
@@ -28,10 +30,8 @@ class HomeViewModel(
         kampusRepository.koordinat.stateIn(viewModelScope, SharingStarted.Eagerly, null)
     private val weather =
         coordinates.flatMapLatest { location ->
-            if (location == null)
-                flowOf<AppResult<Cuaca>>(
-                    AppResult.Error("Isi koordinat kampus terverifikasi pada Profil.")
-                )
+            // Tanpa koordinat: HomeUiState.butuhKoordinat menampilkan pesan dari resource.
+            if (location == null) flowOf<AppResult<Cuaca>>(AppResult.Loading())
             else cuacaRepository.observeCuaca(location)
         }
     private val classes =
@@ -43,18 +43,18 @@ class HomeViewModel(
                     .observeJadwal(date)
                     .map<List<KelasHarian>, AppResult<List<KelasHarian>>> { AppResult.Success(it) }
                     .onStart { emit(AppResult.Loading()) }
-                    .catch { emit(AppResult.Error("Jadwal lokal belum dapat dibaca")) }
+                    .catch { emit(AppResult.Error(it.message.orEmpty())) }
             }
-    private val count = tugasRepository.observeTugas(TugasFilter.BELUM_SELESAI).map { it.size }
+    private val pendingTasks = tugasRepository.observeTugas(TugasFilter.BELUM_SELESAI)
 
-    private data class RefreshState(val loading: Boolean = false, val message: String? = null)
+    private data class RefreshState(val loading: Boolean = false, val message: UiText? = null)
 
     private val refreshState = MutableStateFlow(RefreshState())
     private var refreshJob: Job? = null
     private var refreshLocation: KoordinatKampus? = null
     private var refreshGeneration = 0L
     private val dashboard =
-        combine(classes, count, weather, network.isOnline, tick) {
+        combine(classes, pendingTasks, weather, network.isOnline, tick) {
                 schedule,
                 tasks,
                 cuaca,
@@ -65,7 +65,9 @@ class HomeViewModel(
                 HomeUiState(
                     loading = schedule is AppResult.Loading,
                     jadwal = rows,
-                    jumlahTugas = tasks,
+                    jumlahTugas = tasks.size,
+                    tugasTerdekat = tasks.minByOrNull { it.tugas.deadline },
+                    tanggal = instant.atZone(DateTimeUtils.campusZone).toLocalDate(),
                     kelasBerikutnya =
                         JadwalResolver.nextClass(
                             rows,
@@ -76,7 +78,11 @@ class HomeViewModel(
                     cacheStale =
                         cached != null &&
                             !DateTimeUtils.isCacheFresh(cached.diambilPada, instant.toEpochMilli()),
-                    message = (schedule as? AppResult.Error)?.message,
+                    message =
+                        if (schedule is AppResult.Error)
+                            UiText.Res(R.string.error_local_schedule_read)
+                        else null,
+                    butuhKoordinat = coordinates.value == null,
                     hujanBerikutnya =
                         cached
                             ?.hujan
@@ -93,7 +99,9 @@ class HomeViewModel(
                             .take(3),
                 )
             }
-            .catch { emit(HomeUiState(loading = false, message = "Data lokal belum dapat dibaca")) }
+            .catch {
+                emit(HomeUiState(loading = false, message = UiText.Res(R.string.error_local_read)))
+            }
     val uiState: StateFlow<HomeUiState> =
         combine(dashboard, refreshState) { state, refresh ->
                 state.copy(refreshing = refresh.loading, message = refresh.message ?: state.message)
@@ -115,7 +123,7 @@ class HomeViewModel(
             coordinates.value
                 ?: run {
                     refreshState.value =
-                        RefreshState(message = "Isi koordinat kampus pada Profil terlebih dahulu.")
+                        RefreshState(message = UiText.Res(R.string.error_need_coordinates))
                     return
                 }
         if (refreshState.value.loading && location == refreshLocation) return
@@ -129,13 +137,17 @@ class HomeViewModel(
                     val result = cuacaRepository.refresh(location)
                     if (generation == refreshGeneration)
                         refreshState.value =
-                            RefreshState(message = (result as? AppResult.Error)?.message)
+                            RefreshState(
+                                message =
+                                    (result as? AppResult.Error)?.message?.let { UiText.Raw(it) }
+                            )
                 } catch (cancelled: CancellationException) {
                     if (generation == refreshGeneration) refreshState.value = RefreshState()
                     throw cancelled
                 } catch (_: Exception) {
                     if (generation == refreshGeneration)
-                        refreshState.value = RefreshState(message = "Cuaca belum dapat diperbarui")
+                        refreshState.value =
+                            RefreshState(message = UiText.Res(R.string.error_weather_refresh))
                 }
             }
     }

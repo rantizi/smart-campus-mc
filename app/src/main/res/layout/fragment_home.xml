@@ -1,16 +1,85 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
-<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_title" android:textSize="22sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/connection" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/summary" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_schedule" android:textSize="16sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/schedule" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_next" android:textSize="16sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/next_class" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_weather" android:textSize="16sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/weather" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/refresh" android:minHeight="48dp" android:text="@string/home_refresh" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/status" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_attribution" android:textSize="12sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Beranda sesuai wireframe Laporan 1 Gambar 3a: kartu cuaca, kelas berikutnya, jadwal hari ini, tugas terdekat. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/beranda" android:textAppearance="@style/TextAppearance.PaduKampus.JudulLayar" />
+        <TextView android:id="@+id/date" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+        <TextView android:id="@+id/connection" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:accessibilityLiveRegion="polite"
+            android:textAppearance="@style/TextAppearance.PaduKampus.Keterangan" />
+
+        <!-- Cuaca (FR-10) -->
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/home_weather" android:textAppearance="@style/TextAppearance.PaduKampus.JudulKartu" />
+                <TextView android:id="@+id/weather" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite"
+                    android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+                <TextView android:id="@+id/rain" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+                <TextView android:id="@+id/weather_meta" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:textAppearance="@style/TextAppearance.PaduKampus.Keterangan" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/refresh"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:minHeight="48dp" android:text="@string/home_refresh" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/home_attribution" android:textAppearance="@style/TextAppearance.PaduKampus.Keterangan" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Kelas berikutnya (FR-03) -->
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:id="@+id/next_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/home_next" android:textAppearance="@style/TextAppearance.PaduKampus.JudulKartu" />
+                <TextView android:id="@+id/next_class" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite"
+                    android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+                <TextView android:id="@+id/next_location" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.PaduKampus.Keterangan" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/open_map"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:minHeight="48dp" android:text="@string/home_open_map" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Jadwal hari ini (FR-03) -->
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/home_schedule" android:textAppearance="@style/TextAppearance.PaduKampus.JudulKartu" />
+                <TextView android:id="@+id/schedule" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:lineSpacingExtra="4dp"
+                    android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Tugas terdekat (FR-05) -->
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/home_nearest_task" android:textAppearance="@style/TextAppearance.PaduKampus.JudulKartu" />
+                <TextView android:id="@+id/nearest_task" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+                <TextView android:id="@+id/summary" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp" android:textAppearance="@style/TextAppearance.PaduKampus.Keterangan" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite"
+            android:textColor="@color/pk_galat" android:textSize="14sp" />
+    </LinearLayout>
 </ScrollView>

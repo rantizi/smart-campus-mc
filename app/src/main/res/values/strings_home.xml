@@ -1,17 +1,25 @@
 <resources>
-    <string name="home_title">PaduKampus</string>
     <string name="home_offline">Mode luring · data lokal tetap tersedia</string>
     <string name="home_local_first">Menampilkan data yang tersimpan di perangkat</string>
     <plurals name="home_task_count"><item quantity="one">%1$d tugas belum selesai</item><item quantity="other">%1$d tugas belum selesai</item></plurals>
     <string name="home_loading">Memuat data lokal…</string>
     <string name="home_empty_schedule">Belum ada jadwal pada hari ini.</string>
-    <string name="home_cancelled">Batal</string>
+    <string name="home_cancelled">batal</string>
+    <string name="home_moved">pindah ruang</string>
+    <string name="home_time_changed">ganti jam</string>
     <string name="home_no_next_class">Tidak ada kelas berikutnya hari ini.</string>
-    <string name="home_weather_value">%1$s °C · kode cuaca %2$d</string>
+    <string name="home_next_at">Kelas berikutnya · %1$s</string>
+    <string name="home_weather_value">%1$s °C · %2$s</string>
+    <string name="home_rain_title">Peluang hujan per jam</string>
     <string name="home_old_cache">Data tersimpan sudah lebih dari 30 menit.</string>
+    <string name="home_fetched_at">Diambil %1$s</string>
     <string name="home_refresh">Perbarui cuaca</string>
     <string name="home_schedule">Jadwal hari ini</string>
     <string name="home_next">Kelas berikutnya</string>
     <string name="home_weather">Cuaca kampus</string>
+    <string name="home_open_map">Lihat di peta</string>
+    <string name="home_nearest_task">Tugas terdekat</string>
+    <string name="home_no_task">Tidak ada tugas yang belum selesai.</string>
+    <string name="home_task_line">%1$s · %2$s</string>
     <string name="home_attribution">Data cuaca oleh Open-Meteo (https://open-meteo.com), CC BY 4.0.</string>
 </resources>
