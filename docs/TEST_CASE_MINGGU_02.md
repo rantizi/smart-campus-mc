@@ -24,3 +24,18 @@ Unit test berada di `app/src/test/`: DateTimeUtilsTest, JadwalResolverTest, Cuac
 ## Bug dan kendala
 
 Belum ada bug runtime perangkat yang dikonfirmasi. Catat reproduksi, versi Android, kondisi jaringan/izin/baterai, perbaikan dan hasil retest setelah eksekusi nyata. Kebutuhan data kampus, form jadwal, peta digital dan sinkronisasi adalah pekerjaan terbuka, bukan bug yang sudah diperbaiki.
+
+## Skenario tambahan setelah penyesuaian Laporan 1
+
+Lihat [PENYESUAIAN_LAPORAN_1.md](PENYESUAIAN_LAPORAN_1.md). Semua skenario berikut belum dijalankan.
+
+| ID | Skenario | Hasil yang diharapkan | Status |
+|---|---|---|---|
+| B01 | Jadwal → + → isi nama MK, hari, jam 08:00–10:00 → Simpan | Kartu tampil di tanggal dengan hari tersebut; mata kuliah baru dibuat | Belum dijalankan |
+| B02 | Form Jadwal: jam selesai ≤ jam mulai, jam `8.00`, SKS huruf | Pesan validasi tampil, data tidak tersimpan (NFR-04) | Belum dijalankan |
+| B03 | Menu ⋮ → Ubah jadwal → ganti ruangan/jam → Simpan; rotasi layar saat mengisi | Perubahan tersimpan; isian tidak hilang saat rotasi | Belum dijalankan |
+| B04 | Menu ⋮ → Catat perubahan → Kelas batal / Ganti jam 13:00–15:00 / Pindah ruangan | Kartu dan Beranda menampilkan status perubahan hanya pada tanggal itu | Belum dijalankan |
+| B05 | Buka lagi Catat perubahan pada tanggal yang sama → Hapus perubahan | Form terisi data lama; setelah hapus, jadwal kembali reguler | Belum dijalankan |
+| B06 | Menu ⋮ → Hapus → konfirmasi | Jadwal hilang dari daftar dan Beranda (soft delete) | Belum dijalankan |
+| B07 | Peta tanpa data gedung; lalu dengan data gedung/ruangan; cari kode ruangan | Pesan data kosong; penanda gedung; hasil cari → kartu ruangan + peta terpusat | Belum dijalankan |
+| B08 | Beranda → "Lihat di peta" pada kelas berikutnya yang punya ruangan; mode pesawat | Peta membuka ruangan tersebut; info gedung tetap ada luring (tile tidak termuat) | Belum dijalankan |
