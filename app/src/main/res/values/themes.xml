@@ -1,9 +1,35 @@
 <resources>
-    <style name="Theme.PaduKampus" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#1A5C8A</item>
-        <item name="colorPrimaryVariant">#15496D</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-        <item name="colorSecondary">#1A5C8A</item>
-        <item name="colorOnSecondary">#FFFFFF</item>
+    <!-- Tema terang sesuai Laporan 1 Tabel 5; DayNight tidak dipakai agar rasio kontras tetap berlaku. -->
+    <style name="Theme.PaduKampus" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/pk_primer</item>
+        <item name="colorPrimaryVariant">@color/pk_primer_gelap</item>
+        <item name="colorOnPrimary">@color/pk_putih</item>
+        <item name="colorSecondary">@color/pk_primer</item>
+        <item name="colorOnSecondary">@color/pk_putih</item>
+        <item name="colorError">@color/pk_galat</item>
+        <item name="colorSurface">@color/pk_kartu</item>
+        <item name="colorOnSurface">@color/pk_teks</item>
+        <item name="android:colorBackground">@color/pk_latar</item>
+        <item name="android:windowBackground">@color/pk_latar</item>
+        <item name="android:textColorPrimary">@color/pk_teks</item>
+        <item name="android:textColorSecondary">@color/pk_teks_sekunder</item>
+        <item name="android:statusBarColor">@color/pk_primer_gelap</item>
+        <!-- Roboto adalah font sistem "sans-serif" di Android. -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="bottomNavigationStyle">@style/Widget.PaduKampus.BottomNavigation</item>
+        <item name="materialCardViewStyle">@style/Widget.PaduKampus.Card</item>
+    </style>
+
+    <style name="Widget.PaduKampus.BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/pk_kartu</item>
+        <item name="itemIconTint">@color/pk_bottom_nav</item>
+        <item name="itemTextColor">@color/pk_bottom_nav</item>
+    </style>
+
+    <style name="Widget.PaduKampus.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/pk_kartu</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="contentPadding">16dp</item>
     </style>
 </resources>
