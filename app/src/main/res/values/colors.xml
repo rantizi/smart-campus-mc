@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Palet Laporan 1, Tabel 5 (kontras WCAG 2.x minimal 4,5:1 terhadap teks di atasnya). -->
+<resources>
+    <color name="pk_primer">#1A5C8A</color>
+    <color name="pk_primer_gelap">#15496D</color>
+    <color name="pk_peringatan">#F2B705</color>
+    <color name="pk_galat">#B3261E</color>
+    <color name="pk_berhasil">#2E7D32</color>
+    <color name="pk_latar">#F6F8FB</color>
+    <color name="pk_kartu">#FFFFFF</color>
+    <color name="pk_teks">#1F1F1F</color>
+    <color name="pk_teks_sekunder">#5F6368</color>
+    <color name="pk_putih">#FFFFFF</color>
+</resources>

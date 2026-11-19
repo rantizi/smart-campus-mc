@@ -20,6 +20,33 @@ interface JadwalDao {
     )
     fun observeJadwalHarian(hari: Int, tanggal: String): Flow<List<JadwalDetail>>
 
+    // Pilihan jadwal pada Form Perubahan (FR-04), urut Senin–Minggu lalu jam mulai.
+    @Transaction
+    @Query(
+        """
+        SELECT j.* FROM jadwal j JOIN mata_kuliah m ON m.id = j.mata_kuliah_id
+        WHERE j.is_deleted = 0 AND m.is_deleted = 0
+        ORDER BY j.hari, j.jam_mulai
+    """
+    )
+    fun observeSemuaJadwal(): Flow<List<JadwalDetail>>
+
+    @Transaction
+    @Query("SELECT * FROM jadwal WHERE id = :id AND is_deleted = 0")
+    suspend fun getJadwalDetail(id: String): JadwalDetail?
+
+    @Query("SELECT * FROM mata_kuliah WHERE nama = :nama COLLATE NOCASE AND is_deleted = 0 LIMIT 1")
+    suspend fun getMataKuliahByNama(nama: String): MataKuliahEntity?
+
+    @Query(
+        "UPDATE perubahan_jadwal SET is_deleted = 1, updated_at = :now, sync_status = 'PENDING' " +
+            "WHERE id = :id"
+    )
+    suspend fun hapusPerubahan(id: String, now: Long)
+
+    // Termasuk baris terhapus: seed hanya untuk database yang benar-benar baru.
+    @Query("SELECT COUNT(*) FROM jadwal") suspend fun hitungJadwal(): Int
+
     @Query("SELECT * FROM mata_kuliah WHERE is_deleted = 0 ORDER BY nama")
     fun observeMataKuliah(): Flow<List<MataKuliahEntity>>
 
@@ -42,7 +69,8 @@ interface JadwalDao {
     @Upsert suspend fun simpanPerubahan(value: PerubahanJadwalEntity)
 
     @Query(
-        "UPDATE jadwal SET is_deleted = 1, updated_at = :now, sync_status = 'PENDING' WHERE id = :id"
+        "UPDATE jadwal SET is_deleted = 1, updated_at = :now, sync_status = 'PENDING' " +
+            "WHERE id = :id"
     )
     suspend fun hapusJadwal(id: String, now: Long)
 }

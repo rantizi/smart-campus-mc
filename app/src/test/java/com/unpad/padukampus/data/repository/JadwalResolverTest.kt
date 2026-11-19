@@ -43,6 +43,15 @@ class JadwalResolverTest {
     }
 
     @Test
+    fun changeTypeIsExposedForScheduleLabels() {
+        assertNull(JadwalResolver.resolve(detail(), date)!!.jenisPerubahan)
+        val moved = JadwalResolver.resolve(detail(change("PINDAH_RUANG")), date)!!
+        assertEquals("PINDAH_RUANG", moved.jenisPerubahan)
+        val restored = JadwalResolver.resolve(detail(change("GANTI_JAM", deleted = true)), date)!!
+        assertNull(restored.jenisPerubahan)
+    }
+
+    @Test
     fun wrongWeekdayHasNoRegularClass() {
         assertNull(JadwalResolver.resolve(detail(), date.plusDays(1)))
     }

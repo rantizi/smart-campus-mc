@@ -1,5 +1,6 @@
 package com.unpad.padukampus.ui.tasks
 
+import com.unpad.padukampus.core.common.UiText
 import com.unpad.padukampus.data.local.relation.TugasDetail
 import com.unpad.padukampus.data.repository.TugasFilter
 
@@ -7,7 +8,7 @@ data class TaskUiState(
     val loading: Boolean = true,
     val tugas: List<TugasDetail> = emptyList(),
     val filter: TugasFilter = TugasFilter.SEMUA,
-    val error: String? = null,
+    val error: UiText? = null,
 )
 
 data class TaskFormDraft(
@@ -26,5 +27,5 @@ data class TaskFormUiState(
     val saved: Boolean = false,
     val unavailable: Boolean = false,
     val notificationsEnabled: Boolean = false,
-    val error: String? = null,
+    val error: UiText? = null,
 )

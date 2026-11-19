@@ -22,5 +22,6 @@
     <string name="task_notifications_on">Izin notifikasi aktif. Waktu tampil pengingat dapat dipengaruhi perangkat.</string>
     <string name="task_notifications_off">Notifikasi belum diizinkan. Tugas tetap dapat disimpan.</string>
     <string name="task_save">Simpan</string>
+    <string name="task_overdue">%1$s · terlambat</string>
     <string-array name="task_sources"><item>LAINNYA</item><item>LMS</item><item>CLASSROOM</item><item>WA</item><item>LISAN</item></string-array>
 </resources>

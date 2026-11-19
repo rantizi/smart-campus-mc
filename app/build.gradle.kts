@@ -39,6 +39,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("androidx.work:work-runtime-ktx:2.10.0")
+    // Peta kampus tanpa API key/akun penagihan (Laporan 1 Tabel 6).
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1")
     testImplementation("androidx.arch.core:core-testing:2.2.0")

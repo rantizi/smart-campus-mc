@@ -2,6 +2,7 @@ package com.unpad.padukampus.ui.tasks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,21 @@ class TaskAdapter(
                     task.sumber,
                 )
             deadline.text = DateTimeUtils.formatDeadline(task.deadline)
+            // Tabel 5 Laporan 1: Galat = tugas terlambat, Berhasil = tugas selesai.
+            val overdue = !task.selesai && task.deadline < System.currentTimeMillis()
+            if (overdue)
+                deadline.text =
+                    root.context.getString(R.string.task_overdue, deadline.text.toString())
+            deadline.setTextColor(
+                ContextCompat.getColor(
+                    root.context,
+                    when {
+                        task.selesai -> R.color.pk_berhasil
+                        overdue -> R.color.pk_galat
+                        else -> R.color.pk_teks_sekunder
+                    },
+                )
+            )
             done.setOnCheckedChangeListener(null)
             done.isChecked = task.selesai
             done.setOnCheckedChangeListener { _, checked -> toggle(task.id, checked) }

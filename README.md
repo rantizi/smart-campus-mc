@@ -2,7 +2,7 @@
 
 Kerangka aplikasi Android asisten kuliah mahasiswa Unpad Jatinangor untuk Mobile Computing kelas B. Konteks anggota dan kebutuhan awal ada di [KONTEKS_KELOMPOK.md](KONTEKS_KELOMPOK.md).
 
-Arsitektur memakai **MVVM + Repository + offline-first**, package `com.unpad.padukampus`. Lima menu utama dan Form Tugas menggunakan Fragment, XML, Material Components, View Binding, dan Navigation Safe Args.
+Arsitektur memakai **MVVM + Repository + offline-first**, package `com.unpad.padukampus`. Lima menu utama, Form Tugas, Form Jadwal dan Form Perubahan menggunakan Fragment, XML, Material Components, View Binding, dan Navigation Safe Args.
 
 ## Mulai menjalankan
 
@@ -56,10 +56,10 @@ app/src/main/java/com/unpad/padukampus/
 ## Perilaku yang disiapkan
 
 - **Tugas**: tambah/ubah, sumber tugas, filter status, selesai dan soft delete. Draf form disimpan di SavedStateHandle. Mata kuliah baru dapat dibuat dari nama input; kode/dosen/SKS tetap kosong atau 0 sampai diisi melalui pengelolaan mata kuliah.
-- **Jadwal**: observasi Room beserta nama mata kuliah dan lokasi, penerapan pembatalan/ganti jam/pindah ruang pada tanggal tertentu, serta kelas berikutnya setelah perubahan. Form pengelolaan jadwal belum dibuat.
+- **Jadwal**: observasi Room beserta nama mata kuliah dan lokasi, penerapan pembatalan/ganti jam/pindah ruang pada tanggal tertentu, serta kelas berikutnya setelah perubahan. Form Jadwal (FR-02) dan Form Perubahan (FR-04) tersedia dari layar Jadwal.
 - **Cuaca**: masukkan koordinat terverifikasi melalui Profil. Repository menulis respons API ke Room; Beranda mengamati cache, tetap menampilkan data luring, dan memberi status cache lama. Tidak ada koordinat kampus fiktif atau izin lokasi perangkat.
 - **Pengingat**: unique work per UUID, pemeriksaan revisi/data terkini, penanganan izin notifikasi, dan deep link Safe Args. Waktu tampil tidak dijamin tepat oleh WorkManager; perilaku perangkat belum diuji.
-- **Peta**: daftar dan pencarian ruangan lokal tersedia; peta tile/marker serta seed kampus belum tersedia.
+- **Peta**: osmdroid + OpenStreetMap dengan penanda dari tabel gedung dan pencarian ruangan lokal; data awal PPBS Gedung A–D (koordinat OpenStreetMap) ada di `data/local/seed/KampusSeed.kt`; kode ruangan menunggu jadwal resmi.
 - **Cloud**: interface/stub minggu 3, belum login atau sinkronisasi Firebase. Tidak ada API key atau kredensial yang dikarang.
 
 ## Bekerja bertiga
@@ -72,5 +72,6 @@ Dokumentasi lain:
 - [Penjelasan hasil refactor](PENJELASAN_MINGGU_02.md)
 - [Test case dan batas verifikasi](docs/TEST_CASE_MINGGU_02.md)
 - [Rencana kerja minggu 2](docs/RENCANA_KERJA_MINGGU_02.md)
+- [Penyesuaian kode dengan Laporan 1](docs/PENYESUAIAN_LAPORAN_1.md)
 
 Laporan Word pada `output/minggu-02/laporan/` adalah snapshot sebelum refactor ini dan dipertahankan sebagai arsip. Jangan menganggap namespace, struktur, atau status build di snapshot tersebut sebagai keadaan kode terbaru.

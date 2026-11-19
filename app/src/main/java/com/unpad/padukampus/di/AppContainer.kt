@@ -18,6 +18,8 @@ import com.unpad.padukampus.data.repository.*
 import com.unpad.padukampus.ui.home.HomeViewModel
 import com.unpad.padukampus.ui.map.MapViewModel
 import com.unpad.padukampus.ui.profile.ProfileViewModel
+import com.unpad.padukampus.ui.schedule.ChangeFormViewModel
+import com.unpad.padukampus.ui.schedule.ScheduleFormViewModel
 import com.unpad.padukampus.ui.schedule.ScheduleViewModel
 import com.unpad.padukampus.ui.tasks.TaskViewModel
 import com.unpad.padukampus.worker.*
@@ -84,11 +86,37 @@ class AppContainer(context: Context) {
         initializer { ScheduleViewModel(jadwalRepository, createSavedStateHandle(), clock) }
     }
 
+    fun scheduleFormFactory(jadwalId: String = "") = viewModelFactory {
+        initializer {
+            ScheduleFormViewModel(
+                jadwalRepository,
+                kampusRepository,
+                createSavedStateHandle(),
+                jadwalId,
+            )
+        }
+    }
+
+    fun changeFormFactory(jadwalId: String = "", tanggal: String = "") = viewModelFactory {
+        initializer {
+            ChangeFormViewModel(
+                jadwalRepository,
+                kampusRepository,
+                createSavedStateHandle(),
+                jadwalId,
+                tanggal,
+                clock,
+            )
+        }
+    }
+
     fun taskFactory(taskId: String = "") = viewModelFactory {
         initializer { TaskViewModel(tugasRepository, createSavedStateHandle(), taskId) }
     }
 
-    fun mapFactory() = viewModelFactory { initializer { MapViewModel(kampusRepository) } }
+    fun mapFactory(kodeRuangan: String = "") = viewModelFactory {
+        initializer { MapViewModel(kampusRepository, createSavedStateHandle(), kodeRuangan) }
+    }
 
     fun profileFactory() = viewModelFactory {
         initializer {

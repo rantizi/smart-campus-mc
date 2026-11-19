@@ -1,14 +1,31 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
-    <fragment android:id="@+id/homeFragment" android:name="com.unpad.padukampus.ui.home.HomeFragment" android:label="@string/beranda" />
-    <fragment android:id="@+id/scheduleFragment" android:name="com.unpad.padukampus.ui.schedule.ScheduleFragment" android:label="@string/jadwal" />
+    <fragment android:id="@+id/homeFragment" android:name="com.unpad.padukampus.ui.home.HomeFragment" android:label="@string/beranda">
+        <action android:id="@+id/action_home_to_map" app:destination="@id/mapFragment"
+            app:launchSingleTop="true" app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment android:id="@+id/scheduleFragment" android:name="com.unpad.padukampus.ui.schedule.ScheduleFragment" android:label="@string/jadwal">
+        <action android:id="@+id/action_schedule_to_scheduleForm" app:destination="@id/scheduleFormFragment" />
+        <action android:id="@+id/action_schedule_to_changeForm" app:destination="@id/changeFormFragment" />
+    </fragment>
     <fragment android:id="@+id/taskListFragment" android:name="com.unpad.padukampus.ui.tasks.TaskListFragment" android:label="@string/tugas">
         <action android:id="@+id/action_taskList_to_taskForm" app:destination="@id/taskFormFragment" />
     </fragment>
-    <fragment android:id="@+id/mapFragment" android:name="com.unpad.padukampus.ui.map.MapFragment" android:label="@string/peta" />
+    <fragment android:id="@+id/mapFragment" android:name="com.unpad.padukampus.ui.map.MapFragment" android:label="@string/peta">
+        <!-- Kode ruangan dari Beranda ("Lihat di peta"); kosong saat dibuka dari menu bawah. -->
+        <argument android:name="kodeRuangan" app:argType="string" android:defaultValue="" />
+    </fragment>
     <fragment android:id="@+id/profileFragment" android:name="com.unpad.padukampus.ui.profile.ProfileFragment" android:label="@string/profil" />
     <fragment android:id="@+id/taskFormFragment" android:name="com.unpad.padukampus.ui.tasks.TaskFormFragment" android:label="@string/task_form_title">
         <argument android:name="taskId" app:argType="string" android:defaultValue="" />
+    </fragment>
+    <fragment android:id="@+id/scheduleFormFragment" android:name="com.unpad.padukampus.ui.schedule.ScheduleFormFragment" android:label="@string/schedule_form_title">
+        <argument android:name="jadwalId" app:argType="string" android:defaultValue="" />
+    </fragment>
+    <fragment android:id="@+id/changeFormFragment" android:name="com.unpad.padukampus.ui.schedule.ChangeFormFragment" android:label="@string/change_form_title">
+        <argument android:name="jadwalId" app:argType="string" android:defaultValue="" />
+        <!-- yyyy-MM-dd; kosong berarti tanggal hari ini (WIB). -->
+        <argument android:name="tanggal" app:argType="string" android:defaultValue="" />
     </fragment>
 </navigation>

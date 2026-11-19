@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
         }
         val host = supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         binding.bottomNavigation.setupWithNavController(host.navController)
+        val formDestinations =
+            setOf(R.id.taskFormFragment, R.id.scheduleFormFragment, R.id.changeFormFragment)
         host.navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNavigation.isVisible = destination.id != R.id.taskFormFragment
+            binding.bottomNavigation.isVisible = destination.id !in formDestinations
         }
     }
 }

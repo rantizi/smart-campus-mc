@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Skala font Laporan 1 Tabel 5: judul layar 22 sp, judul kartu 16 sp tebal, isi 14 sp, keterangan 12 sp. -->
+<resources>
+    <style name="TextAppearance.PaduKampus.JudulLayar" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/pk_teks</item>
+    </style>
+    <style name="TextAppearance.PaduKampus.JudulKartu" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/pk_teks</item>
+    </style>
+    <style name="TextAppearance.PaduKampus.Isi" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/pk_teks</item>
+    </style>
+    <style name="TextAppearance.PaduKampus.Keterangan" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/pk_teks_sekunder</item>
+    </style>
+</resources>

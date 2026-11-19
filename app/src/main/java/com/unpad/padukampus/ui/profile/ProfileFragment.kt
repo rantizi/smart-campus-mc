@@ -41,7 +41,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     ui.save.isEnabled = !state.loading && !state.saving
                     ui.latitude.isEnabled = !state.loading && !state.saving
                     ui.longitude.isEnabled = !state.loading && !state.saving
-                    ui.status.text = state.message.orEmpty()
+                    ui.status.text = state.message?.asString(requireContext()).orEmpty()
                 }
             }
         }
