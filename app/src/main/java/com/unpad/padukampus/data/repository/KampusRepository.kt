@@ -6,6 +6,7 @@ import com.unpad.padukampus.data.local.dao.KampusDao
 import com.unpad.padukampus.data.local.entity.GedungEntity
 import com.unpad.padukampus.data.local.entity.RuanganEntity
 import com.unpad.padukampus.data.local.relation.RuanganDetail
+import com.unpad.padukampus.data.local.seed.KampusSeed
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
@@ -42,6 +43,9 @@ interface KampusRepository {
     suspend fun simpanGedung(value: GedungEntity)
 
     suspend fun simpanRuangan(value: RuanganEntity)
+
+    /** Isi gedung/ruangan terverifikasi (KampusSeed) dan koordinat cuaca bawaan bila kosong. */
+    suspend fun seedDataAwal()
 }
 
 class OfflineKampusRepository(
@@ -100,5 +104,12 @@ class OfflineKampusRepository(
             "Nama dan kode ruangan wajib diisi"
         }
         dao.simpanRuangan(value)
+    }
+
+    override suspend fun seedDataAwal() {
+        KampusSeed.gedung.forEach { dao.simpanGedung(it) }
+        KampusSeed.ruangan.forEach { dao.simpanRuangan(it) }
+        val belumDiatur = withContext(ioDispatcher) { readCoordinates() == null }
+        if (belumDiatur) simpanKoordinat(KampusSeed.koordinatBawaan)
     }
 }
