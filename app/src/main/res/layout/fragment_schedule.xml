@@ -1,10 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/schedule_title" android:textSize="22sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/date" android:textSize="16sp" android:layout_marginTop="8dp" android:textStyle="bold" android:accessibilityLiveRegion="polite" />
-<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/previous" android:minHeight="48dp" android:text="@string/schedule_previous" />
-<com.google.android.material.button.MaterialButton android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/next" android:minHeight="48dp" android:text="@string/schedule_next" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/schedule_scope" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/status" android:textSize="14sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/empty" android:text="@string/schedule_empty" android:textSize="16sp" android:layout_marginTop="8dp" android:accessibilityLiveRegion="polite" />
-<androidx.recyclerview.widget.RecyclerView android:id="@+id/schedules" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
-</LinearLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Jadwal sesuai wireframe Gambar 3b; tombol + membuka Form Jadwal (FR-02). -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:padding="16dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/schedule_title" android:textAppearance="@style/TextAppearance.PaduKampus.JudulLayar" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton android:id="@+id/previous"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:text="@string/schedule_previous_short"
+                android:contentDescription="@string/schedule_previous" />
+            <TextView android:id="@+id/date" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:gravity="center" android:accessibilityLiveRegion="polite"
+                android:textAppearance="@style/TextAppearance.PaduKampus.JudulKartu" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/next"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:minHeight="48dp" android:text="@string/schedule_next_short"
+                android:contentDescription="@string/schedule_next" />
+        </LinearLayout>
+        <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:accessibilityLiveRegion="polite" android:textColor="@color/pk_galat" android:textSize="14sp" />
+        <TextView android:id="@+id/empty" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:text="@string/schedule_empty"
+            android:textAppearance="@style/TextAppearance.PaduKampus.Isi" />
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/schedules" android:layout_width="match_parent"
+            android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="8dp"
+            android:clipToPadding="false" android:paddingBottom="88dp" />
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton android:id="@+id/add_schedule"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end" android:layout_margin="16dp"
+        android:contentDescription="@string/schedule_add" app:srcCompat="@drawable/ic_add"
+        app:backgroundTint="@color/pk_primer" app:tint="@color/pk_putih" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

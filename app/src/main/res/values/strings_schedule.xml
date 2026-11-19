@@ -1,10 +1,58 @@
 <resources>
     <string name="schedule_time_range">%1$s–%2$s WIB</string>
-    <string name="schedule_title">Jadwal kuliah</string>
+    <string name="schedule_title">Jadwal</string>
     <string name="schedule_previous">Hari sebelumnya</string>
     <string name="schedule_next">Hari berikutnya</string>
+    <string name="schedule_previous_short">‹ Sebelumnya</string>
+    <string name="schedule_next_short">Berikutnya ›</string>
     <string name="schedule_loading">Memuat jadwal…</string>
-    <string name="schedule_empty">Belum ada jadwal untuk tanggal ini.</string>
+    <string name="schedule_empty">Belum ada jadwal untuk tanggal ini. Tekan + untuk menambah jadwal.</string>
     <string name="schedule_cancelled">Kelas dibatalkan</string>
-    <string name="schedule_scope">Jadwal dan perubahan tanggal dibaca dari data lokal. Form pengelolaan jadwal masih dalam pengembangan.</string>
+    <string name="schedule_moved">Pindah ruangan pada tanggal ini</string>
+    <string name="schedule_time_changed">Jam diganti pada tanggal ini</string>
+    <string name="schedule_lecturer">Dosen: %1$s</string>
+    <string name="schedule_menu">Menu jadwal</string>
+    <string name="schedule_add">Tambah jadwal</string>
+    <string name="schedule_edit">Ubah jadwal</string>
+    <string name="schedule_record_change">Catat perubahan</string>
+    <string name="schedule_delete">Hapus</string>
+    <string name="schedule_delete_confirm">Hapus jadwal ini? Perubahan per tanggal ikut tidak ditampilkan.</string>
+    <string name="schedule_no_room">Ruangan belum ditentukan</string>
+    <string name="schedule_rooms_empty">Data ruangan belum diisi; jadwal tetap bisa disimpan tanpa ruangan.</string>
+    <string name="schedule_date_format">%1$s, %2$s</string>
+
+    <string name="schedule_form_title">Form jadwal</string>
+    <string name="schedule_form_edit_title">Ubah jadwal</string>
+    <string name="schedule_course">Nama mata kuliah *</string>
+    <string name="schedule_code">Kode mata kuliah</string>
+    <string name="schedule_lecturer_hint">Dosen</string>
+    <string name="schedule_credits">SKS</string>
+    <string name="schedule_day">Hari *</string>
+    <string name="schedule_start">Jam mulai * (HH:mm)</string>
+    <string name="schedule_end">Jam selesai * (HH:mm)</string>
+    <string name="schedule_room">Ruangan</string>
+    <string name="schedule_reminder">Menit pengingat sebelum kelas</string>
+    <string-array name="schedule_days">
+        <item>Senin</item><item>Selasa</item><item>Rabu</item><item>Kamis</item>
+        <item>Jumat</item><item>Sabtu</item><item>Minggu</item>
+    </string-array>
+
+    <string name="change_form_title">Catat perubahan</string>
+    <string name="change_schedule">Jadwal *</string>
+    <string name="change_schedule_item">%1$s · %2$s %3$s</string>
+    <string name="change_no_schedule">Belum ada jadwal. Tambahkan jadwal terlebih dahulu.</string>
+    <string name="change_date">Tanggal * (yyyy-MM-dd)</string>
+    <string name="change_type">Jenis perubahan *</string>
+    <string name="change_type_move">Pindah ruangan</string>
+    <string name="change_type_time">Ganti jam</string>
+    <string name="change_type_cancel">Kelas batal</string>
+    <string name="change_room">Ruangan baru *</string>
+    <string name="change_start">Jam mulai baru * (HH:mm)</string>
+    <string name="change_end">Jam selesai baru * (HH:mm)</string>
+    <string name="change_note">Catatan</string>
+    <string name="change_remove">Hapus perubahan pada tanggal ini</string>
+
+    <string name="form_cancel">Batal</string>
+    <string name="form_save">Simpan</string>
+    <string name="form_loading">Memuat data…</string>
 </resources>
