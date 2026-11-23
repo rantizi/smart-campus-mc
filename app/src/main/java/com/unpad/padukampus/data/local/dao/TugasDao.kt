@@ -31,6 +31,9 @@ interface TugasDao {
     @Query("SELECT * FROM mata_kuliah WHERE nama = :nama COLLATE NOCASE AND is_deleted = 0 LIMIT 1")
     suspend fun getMataKuliahByNama(nama: String): MataKuliahEntity?
 
+    @Query("SELECT * FROM mata_kuliah WHERE is_deleted = 0 ORDER BY nama")
+    fun observeMataKuliah(): Flow<List<MataKuliahEntity>>
+
     @Upsert suspend fun simpanMataKuliah(value: MataKuliahEntity)
 
     @Upsert suspend fun simpanTugas(value: TugasEntity)

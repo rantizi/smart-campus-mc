@@ -9,6 +9,7 @@ import com.unpad.padukampus.data.local.relation.TugasDetail
 import com.unpad.padukampus.worker.TaskReminderScheduler
 import java.time.Clock
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -40,6 +41,9 @@ interface TugasRepository {
     suspend fun hapus(id: String)
 
     suspend fun reconcileReminders()
+
+    /** Pilihan mata kuliah di Form Tugas (kurikulum + mata kuliah buatan pengguna). */
+    fun observeMataKuliah(): Flow<List<MataKuliahEntity>> = flowOf(emptyList())
 }
 
 class OfflineTugasRepository(
@@ -51,6 +55,8 @@ class OfflineTugasRepository(
     private val writes = Mutex()
 
     override fun observeTugas(filter: TugasFilter) = dao.observeTugas(filter.selesai)
+
+    override fun observeMataKuliah() = dao.observeMataKuliah()
 
     override suspend fun getTugas(id: String) =
         dao.getDetail(id)?.takeUnless { it.mataKuliah.isDeleted }

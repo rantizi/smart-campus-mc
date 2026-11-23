@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.core.widget.doAfterTextChanged
@@ -54,9 +55,23 @@ class ScheduleFormFragment : Fragment(R.layout.fragment_schedule_form) {
         ui.reminder.bind { value -> model.updateDraft { it.copy(pengingatMenit = value) } }
         ui.save.setOnClickListener { model.save() }
         ui.cancel.setOnClickListener { findNavController().popBackStack() }
+        ui.course.setOnItemClickListener { parent, _, position, _ ->
+            model.pilihMataKuliah(parent.getItemAtPosition(position).toString())
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                model.state.collect { state -> render(ui, state) }
+                launch { model.state.collect { state -> render(ui, state) } }
+                launch {
+                    model.daftarMataKuliah.collect { rows ->
+                        ui.course.setAdapter(
+                            ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_dropdown_item_1line,
+                                rows.map { it.nama },
+                            )
+                        )
+                    }
+                }
             }
         }
     }
@@ -114,7 +129,7 @@ class ScheduleFormFragment : Fragment(R.layout.fragment_schedule_form) {
     }
 
     private fun roomLabel(room: RuanganDetail) =
-        getString(R.string.map_room_item, room.ruangan.kode, room.gedung.nama, room.ruangan.lantai)
+        getString(R.string.map_room_item, room.ruangan.nama, room.ruangan.kode, room.ruangan.lantai)
 
     private fun EditText.bind(onChange: (String) -> Unit) {
         doAfterTextChanged { if (!rendering) onChange(it.toString()) }
@@ -137,7 +152,9 @@ class ScheduleFormFragment : Fragment(R.layout.fragment_schedule_form) {
     }
 
     private fun setText(field: EditText, value: String) {
-        if (field.text.toString() != value) field.setText(value)
+        if (field.text.toString() == value) return
+        // Dropdown mata kuliah: jangan munculkan saran saat teks dipulihkan dari state.
+        if (field is AutoCompleteTextView) field.setText(value, false) else field.setText(value)
     }
 
     override fun onDestroyView() {

@@ -23,8 +23,11 @@ Metode: black box di emulator (Android 11, API 30) dan white box lewat unit test
 | C15 | NFR-03 | REST akun A menulis ke `users/{uid B}/tugas` | HTTP 403 | Lulus | |
 | C16 | Optimasi | APK release (R8 minify + shrink resources) diinstal, login, buka semua menu | Cuaca terbaca (Gson), data tertarik dari cloud, peta tampil, tidak ada crash | Lulus | 06-peta.png |
 | C17 | FR-08 | Buka Peta | Penanda gedung PPBS A sampai D memakai ikon gedung warna primer | Lulus | 06-peta.png |
+| C18 | FR-02 | Login akun lama (uji2) setelah pembaruan kurikulum | 62 mata kuliah kurikulum ditambahkan, 7 yang sudah ada tidak diduplikasi; Firestore 69 dokumen | Lulus | |
+| C19 | FR-03 | Buka Jadwal hari Selasa akun uji2 (jadwal dibuat sebelum data ruangan ada) | Ruangan terisi sesuai portal, misalnya "PPBS A Ruang 205 · Lantai 2"; `ruangan_id` di Firestore ikut terisi | Lulus | 10-jadwal-ruangan.png |
+| C20 | FR-02 | Form Jadwal, ketik "Data" di Mata kuliah | Dropdown: Data Mining, Data Warehouse, Sistem Database I/II, Struktur Data | Lulus (label bertumpuk, sudah diperbaiki; uji ulang tampilan tertunda) | |
 
-Tingkat keberhasilan akhir: 17 dari 17 skenario lulus. Dua skenario (C06, C13) gagal pada percobaan pertama dan lulus setelah perbaikan B-01 dan B-02.
+Tingkat keberhasilan akhir: 20 dari 20 skenario lulus. Dua skenario (C06, C13) gagal pada percobaan pertama dan lulus setelah perbaikan B-01 dan B-02.
 
 ## Optimasi dan analisis statis
 
@@ -35,7 +38,7 @@ Tingkat keberhasilan akhir: 17 dari 17 skenario lulus. Dua skenario (C06, C13) g
 
 ## White box (unit test JVM)
 
-`./gradlew :app:testDebugUnitTest`: **49 test, 0 gagal**.
+`./gradlew :app:testDebugUnitTest`: **54 test, 0 gagal**.
 
 | Suite | Jumlah | Cakupan baru minggu 3 |
 |---|---|---|
@@ -43,6 +46,7 @@ Tingkat keberhasilan akhir: 17 dari 17 skenario lulus. Dua skenario (C06, C13) g
 | SyncMapperTest | 6 | Konversi bolak-balik empat entitas, `sync_status` tidak dikirim, field rusak memakai nilai bawaan, aturan last-write-wins |
 | LoginViewModelTest | 4 | Validasi tanpa memanggil Firebase, mode daftar, pemetaan galat Firebase, email/mode bertahan setelah process death tetapi kata sandi tidak |
 | AuthValidatorTest | 3 | Format email, panjang kata sandi |
+| SeedDataTest | 5 | 45 wajib + 24 pilihan, SKS semester I-IV sesuai buku pedoman, sandi/nama/ID unik, semua mata kuliah jadwal ada di kurikulum dengan sandi dan SKS sama, ruangan jadwal ada dan kode mengikuti format portal |
 | Suite lama | 27 | Tidak berubah, tetap lulus |
 
 ## Belum diuji
@@ -50,3 +54,4 @@ Tingkat keberhasilan akhir: 17 dari 17 skenario lulus. Dua skenario (C06, C13) g
 - HP fisik (performa, penghemat baterai, notifikasi di perangkat asli).
 - Dua perangkat aktif bersamaan dengan akun yang sama (konflik nyata antarperangkat); logika last-write-wins hanya diuji di unit test.
 - `connectedDebugAndroidTest` (test Room di perangkat).
+- Uji ulang tampilan dropdown setelah perbaikan label, isian otomatis sandi/SKS saat memilih mata kuliah, dan pencarian ruangan di Peta: emulator berulang kali dimatikan sistem karena RAM laptop habis.

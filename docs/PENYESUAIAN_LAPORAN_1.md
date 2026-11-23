@@ -26,7 +26,7 @@ Pembaruan 19 November 2026. Acuan: `output/minggu-01/laporan/Laporan1_SmartCampu
   | PPBS-D | PPBS Gedung D – laboratorium & manajemen | -6.923802 | 107.773778 | OSM way 133956278 |
 
   Koordinat = titik tengah poligon bangunan OpenStreetMap (© OpenStreetMap contributors, ODbL), diambil 19-11-2026. Fungsi gedung dari informatika.unpad.ac.id/s6. Koordinat cuaca bawaan = PPBS Gedung A (mengisi `[ISI: koordinat kampus Jatinangor]` di Laporan 1 Tabel 6), tetap bisa diganti di Profil.
-- **Kode/lantai ruangan masih kosong**: tidak dipublikasikan dan portal akademik butuh login. Diisi dari jadwal kuliah resmi kelompok.
+- **Ruangan (pembaruan 23 Nov 2026)**: diisi dari kolom Ruangan portal akademik dan keterangan Fadhli. Format kode portal `0201-GGGG-RRRR`: `GGGG` gedung (0724 = PPBS A, 0726 = PPBS B, 0720 = PPBS C), `RRRR` nomor ruang, digit pertama nomor ruang = lantai. Total 12 ruangan di `KampusSeed.ruangan`: PPBS A (105, Aula 201, Aula 202, 204, 205, 207, 208), PPBS B (201, 204, 205, 206), PPBS C (309).
 - Login/Profil (Gambar 3 layar Login, FR-01, FR-11) tetap pekerjaan minggu 3.
 - Skema database tidak berubah (versi 1); hanya query DAO baru.
 
@@ -44,7 +44,11 @@ Lihat B01–B08 di [TEST_CASE_MINGGU_02.md](TEST_CASE_MINGGU_02.md).
 
 `app/src/debug/.../data/local/seed/JadwalAwal.kt` berisi 7 jadwal kuliah nyata Fadhli (Selasa: PPL II, Mobile Computing, SIG; Rabu: Kapita Selekta JKKD, Seminar; Kamis: Skripsi; Sabtu: Magang). Data ini dimasukkan sekali saat tabel jadwal masih kosong. Build release memakai `app/src/release/.../JadwalAwal.kt` yang kosong, jadi data pribadi tidak ikut ke pengguna lain.
 
-Jadwal sumber tidak punya kolom ruangan, jadi `ruanganId` masih kosong. Kode `0201-07xx-02xx` di jadwal sumber belum jelas artinya; kemungkinan ID kurikulum atau kelas, bukan ruangan, sehingga tidak dipakai.
+Kode `0201-07xx-0xxx` di jadwal sumber ternyata kode ruangan portal (dikonfirmasi Fadhli, 23 Nov 2026). Ketujuh jadwal sekarang memakai ruangan tersebut; jadwal yang sudah tersimpan tanpa ruangan dilengkapi otomatis saat sinkron awal.
+
+## Kurikulum (pembaruan 23 Nov 2026)
+
+`data/local/seed/KurikulumTI.kt` berisi 69 mata kuliah S-1 Teknik Informatika dari Buku Pedoman Prodi 2021-2022 (Revisi 2022 OBE) halaman 28-30: 45 wajib semester I-VIII dan 24 pilihan dari 4 peminatan (IKMN, SISM, SCSG, JKKD). Empat mata kuliah memakai sandi portal karena berbeda dengan buku: Kapita Selekta JKKD `D10K-7C01`, Magang `UNX10.040701`, Seminar `UNX10.040801`, Skripsi 6 SKS `UNX10.040802`. Kurikulum disemai ke setiap akun setelah sinkron awal (ID tetap dari sandi sehingga tidak ganda di cloud), dan menjadi pilihan dropdown "Mata kuliah" di Form Jadwal dan Form Tugas.
 
 ## Perapian kode (standar Android/Kotlin)
 

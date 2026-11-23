@@ -3,6 +3,7 @@ package com.unpad.padukampus
 import android.app.Application
 import android.util.Log
 import com.unpad.padukampus.data.local.seed.JadwalAwal
+import com.unpad.padukampus.data.local.seed.KurikulumTI
 import com.unpad.padukampus.di.AppContainer
 import java.io.File
 import kotlinx.coroutines.CancellationException
@@ -25,6 +26,7 @@ class PaduKampusApp : Application() {
                 // Build debug: jadwal kuliah anggota untuk uji di HP; build release: daftar kosong.
                 // Dengan Firebase, jadwal awal diisi setelah login bila akun masih kosong.
                 if (!container.authRepository.tersedia) {
+                    container.jadwalRepository.seedKurikulum(KurikulumTI.mataKuliah)
                     container.jadwalRepository.seedJadwalAwal(JadwalAwal.daftar)
                 }
             } catch (cancelled: CancellationException) {

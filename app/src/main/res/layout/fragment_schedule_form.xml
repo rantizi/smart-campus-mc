@@ -6,10 +6,10 @@
         android:padding="16dp">
         <TextView android:id="@+id/form_title" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:text="@string/schedule_form_title" android:textAppearance="@style/TextAppearance.PaduKampus.JudulLayar" />
-        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="8dp" android:hint="@string/schedule_course">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/course" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:minHeight="48dp" android:inputType="textCapWords" android:importantForAutofill="no" />
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/course" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:minHeight="48dp" android:inputType="textCapWords" android:completionThreshold="1" android:importantForAutofill="no" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="8dp" android:hint="@string/schedule_code">

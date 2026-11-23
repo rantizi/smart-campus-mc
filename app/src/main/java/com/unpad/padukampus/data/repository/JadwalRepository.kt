@@ -29,7 +29,7 @@ data class KelasHarian(
 ) {
     val lokasiLabel: String
         get() =
-            lokasi?.let { "${it.ruangan.kode} · ${it.gedung.nama} · Lantai ${it.ruangan.lantai}" }
+            lokasi?.let { "${it.ruangan.nama} · Lantai ${it.ruangan.lantai}" }
                 ?: "Ruangan belum ditentukan"
 }
 
@@ -110,6 +110,12 @@ interface JadwalRepository {
 
     /** Isi jadwal awal hanya bila tabel jadwal masih kosong (tidak menimpa data pengguna). */
     suspend fun seedJadwalAwal(daftar: List<JadwalInput>)
+
+    /**
+     * Tambahkan mata kuliah kurikulum yang belum ada (berdasarkan ID tetap dan nama). Mata kuliah
+     * milik pengguna tidak diubah dan yang pernah dihapus tidak dimunculkan kembali.
+     */
+    suspend fun seedKurikulum(daftar: List<MataKuliahEntity>)
 }
 
 class OfflineJadwalRepository(private val database: PaduKampusDatabase, private val clock: Clock) :
@@ -260,7 +266,39 @@ class OfflineJadwalRepository(private val database: PaduKampusDatabase, private 
     }
 
     override suspend fun seedJadwalAwal(daftar: List<JadwalInput>) {
-        if (daftar.isEmpty() || dao.hitungJadwal() > 0) return
-        daftar.forEach { simpanJadwal(it) }
+        if (daftar.isEmpty()) return
+        if (dao.hitungJadwal() == 0) {
+            daftar.forEach { simpanJadwal(it) }
+            return
+        }
+        // Jadwal awal yang dibuat sebelum data ruangan tersedia: lengkapi ruangannya saja.
+        database.withTransaction {
+            daftar.forEach { input ->
+                val ruangan = input.ruanganId ?: return@forEach
+                val course = dao.getMataKuliahByNama(input.mataKuliahNama.trim()) ?: return@forEach
+                dao.jadwalTanpaRuangan(course.id, input.hari, input.jamMulai).forEach { old ->
+                    dao.simpanJadwal(
+                        old.copy(
+                            ruanganId = ruangan,
+                            updatedAt = maxOf(clock.millis(), old.updatedAt + 1),
+                            syncStatus = AppConstants.SYNC_PENDING,
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    override suspend fun seedKurikulum(daftar: List<MataKuliahEntity>) {
+        database.withTransaction {
+            daftar.forEach { mk ->
+                if (dao.adaMataKuliahId(mk.id) || dao.getMataKuliahByNama(mk.nama) != null) {
+                    return@forEach
+                }
+                dao.simpanMataKuliah(
+                    mk.copy(updatedAt = clock.millis(), syncStatus = AppConstants.SYNC_PENDING)
+                )
+            }
+        }
     }
 }

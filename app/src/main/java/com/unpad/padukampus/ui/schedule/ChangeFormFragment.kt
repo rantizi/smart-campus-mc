@@ -95,8 +95,8 @@ class ChangeFormFragment : Fragment(R.layout.fragment_change_form) {
                     state.ruangan.map {
                         getString(
                             R.string.map_room_item,
+                            it.ruangan.nama,
                             it.ruangan.kode,
-                            it.gedung.nama,
                             it.ruangan.lantai,
                         )
                     },

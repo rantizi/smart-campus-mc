@@ -9,10 +9,13 @@ import com.unpad.padukampus.data.repository.JadwalInput
 import com.unpad.padukampus.data.repository.JadwalRepository
 import com.unpad.padukampus.data.repository.KampusRepository
 import kotlinx.coroutines.CancellationException
+import com.unpad.padukampus.data.local.entity.MataKuliahEntity
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /** Form Jadwal (FR-02): tambah atau ubah mata kuliah beserta jadwal mingguannya. */
@@ -40,6 +43,13 @@ class ScheduleFormViewModel(
             ScheduleFormUiState(draft = restoredDraft(), editing = jadwalId.isNotEmpty())
         )
     val state: StateFlow<ScheduleFormUiState> = _state.asStateFlow()
+
+    /** Mata kuliah kurikulum dan buatan pengguna untuk dropdown Form Jadwal. */
+    val daftarMataKuliah: StateFlow<List<MataKuliahEntity>> =
+        repository
+            .observeMataKuliah()
+            .catch { emit(emptyList()) }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     init {
         viewModelScope.launch {
@@ -82,6 +92,19 @@ class ScheduleFormViewModel(
                         )
                 }
             }
+        }
+    }
+
+    /** Memilih mata kuliah dari dropdown mengisi sandi, SKS dan dosen yang masih kosong. */
+    fun pilihMataKuliah(nama: String) {
+        val mk = daftarMataKuliah.value.firstOrNull { it.nama == nama } ?: return
+        updateDraft { draft ->
+            draft.copy(
+                mataKuliah = mk.nama,
+                kode = draft.kode.ifBlank { mk.kode },
+                dosen = draft.dosen.ifBlank { mk.dosen },
+                sks = draft.sks.ifBlank { mk.sks.takeIf { it > 0 }?.toString().orEmpty() },
+            )
         }
     }
 

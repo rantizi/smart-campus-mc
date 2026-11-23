@@ -22,6 +22,7 @@ import com.unpad.padukampus.core.util.AndroidNetworkMonitor
 import com.unpad.padukampus.core.util.NetworkMonitor
 import com.unpad.padukampus.data.local.db.PaduKampusDatabase
 import com.unpad.padukampus.data.local.seed.JadwalAwal
+import com.unpad.padukampus.data.local.seed.KurikulumTI
 import com.unpad.padukampus.data.remote.api.OpenMeteoApi
 import com.unpad.padukampus.data.remote.sync.*
 import com.unpad.padukampus.data.repository.*
@@ -41,6 +42,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -120,6 +122,9 @@ class AppContainer(context: Context) {
             override suspend fun setelahMasuk(akun: AkunPengguna) {
                 Log.i(TAG, "Sinkron awal setelah login dimulai")
                 syncState.muatAkun(akun.uid)
+                // Ruangan (data referensi lokal) harus ada sebelum jadwal dari cloud ditarik;
+                // ID ruangan yang tidak dikenal dikosongkan oleh sinkronisasi.
+                kampusRepository.seedDataAwal()
                 // Token login baru kadang belum sampai ke Firestore pada detik pertama; coba ulang.
                 var hasil = cloudSyncManager.sync()
                 for (percobaan in 1..3) {
@@ -128,8 +133,10 @@ class AppContainer(context: Context) {
                     delay(2_000L * percobaan)
                     hasil = cloudSyncManager.sync()
                 }
-                // Data akun diambil dulu; jadwal awal (build debug) hanya untuk akun kosong.
+                // Data akun diambil dulu agar semai kurikulum/jadwal awal tidak menduplikasi data
+                // yang sudah ada di cloud. Jadwal awal (build debug) hanya untuk akun kosong.
                 if (hasil is AppResult.Success) {
+                    jadwalRepository.seedKurikulum(KurikulumTI.mataKuliah)
                     jadwalRepository.seedJadwalAwal(JadwalAwal.daftar)
                 }
                 tugasRepository.reconcileReminders()
@@ -165,7 +172,11 @@ class AppContainer(context: Context) {
                 }
             }
         )
-        if (authRepository.akun.value != null) syncScheduler.mulai()
+        // Sudah login dari sesi sebelumnya: tarik data terbaru dan lengkapi kurikulum/ruangan
+        // (misalnya setelah aplikasi diperbarui), lalu jadwalkan sinkron berkala.
+        authRepository.akun.value?.let { akun ->
+            applicationScope.launch { sesi.setelahMasuk(akun) }
+        }
     }
 
     fun homeFactory() = viewModelFactory {

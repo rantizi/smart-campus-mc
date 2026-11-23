@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doAfterTextChanged
@@ -83,6 +84,17 @@ class TaskFormFragment : Fragment(R.layout.fragment_task_form) {
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    model.daftarMataKuliah.collect { names ->
+                        ui.course.setAdapter(
+                            ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_dropdown_item_1line,
+                                names,
+                            )
+                        )
+                    }
+                }
                 model.formState.collect { state ->
                     rendering = true
                     setText(ui.course, state.draft.mataKuliah)
@@ -121,7 +133,9 @@ class TaskFormFragment : Fragment(R.layout.fragment_task_form) {
     }
 
     private fun setText(field: EditText, value: String) {
-        if (field.text.toString() != value) field.setText(value)
+        if (field.text.toString() == value) return
+        // Dropdown mata kuliah: jangan munculkan saran saat teks dipulihkan dari state.
+        if (field is AutoCompleteTextView) field.setText(value, false) else field.setText(value)
     }
 
     override fun onResume() {

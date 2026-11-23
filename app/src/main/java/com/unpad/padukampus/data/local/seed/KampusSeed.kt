@@ -29,10 +29,42 @@ object KampusSeed {
         )
 
     /**
-     * Kode dan lantai ruangan tidak dipublikasikan; diisi dari jadwal kuliah resmi kelompok.
+     * Ruangan dari jadwal resmi portal akademik (semester ganjil 2026/2027) dan keterangan Fadhli
+     * (23 November 2026). Format kode portal: 0201-GGGG-RRRR, dengan GGGG kode gedung (0724 = PPBS A,
+     * 0726 = PPBS B, 0720 = PPBS C) dan RRRR nomor ruang; digit pertama nomor ruang = lantai.
      * Jangan menambahkan ruangan yang belum dicek di lokasi atau di jadwal resmi.
      */
-    val ruangan: List<RuanganEntity> = emptyList()
+    val ruangan: List<RuanganEntity> =
+        listOf(
+            // PPBS A: aula 201 dan 202 serta ruang 105 (keterangan Fadhli); 204, 205, 207, 208 (portal)
+            ruang("gedung-ppbs-a", "0724", "0105", "PPBS A Ruang 105"),
+            ruang("gedung-ppbs-a", "0724", "0201", "PPBS A Aula 201"),
+            ruang("gedung-ppbs-a", "0724", "0202", "PPBS A Aula 202"),
+            ruang("gedung-ppbs-a", "0724", "0204", "PPBS A Ruang 204"),
+            ruang("gedung-ppbs-a", "0724", "0205", "PPBS A Ruang 205"),
+            ruang("gedung-ppbs-a", "0724", "0207", "PPBS A Ruang 207"),
+            ruang("gedung-ppbs-a", "0724", "0208", "PPBS A Ruang 208"),
+            // PPBS B: 204, 205, 206 (keterangan Fadhli); 201 (portal)
+            ruang("gedung-ppbs-b", "0726", "0201", "PPBS B Ruang 201"),
+            ruang("gedung-ppbs-b", "0726", "0204", "PPBS B Ruang 204"),
+            ruang("gedung-ppbs-b", "0726", "0205", "PPBS B Ruang 205"),
+            ruang("gedung-ppbs-b", "0726", "0206", "PPBS B Ruang 206"),
+            // PPBS C: 309 (portal)
+            ruang("gedung-ppbs-c", "0720", "0309", "PPBS C Ruang 309"),
+        )
+
+    fun kodeRuang(gedung: String, nomor: String) = "0201-$gedung-$nomor"
+
+    fun idRuang(gedung: String, nomor: String) = "ruang-$gedung-$nomor"
+
+    private fun ruang(gedungId: String, gedung: String, nomor: String, nama: String) =
+        RuanganEntity(
+            id = idRuang(gedung, nomor),
+            gedungId = gedungId,
+            kode = kodeRuang(gedung, nomor),
+            nama = nama,
+            lantai = nomor.trimStart('0').first().digitToInt(),
+        )
 
     private fun gedung(id: String, nama: String, kode: String, lat: Double, lon: Double) =
         GedungEntity(id = id, nama = nama, kode = kode, latitude = lat, longitude = lon)
