@@ -78,11 +78,12 @@ const body = [
     ['Aturan keamanan Firestore', '2', '2', 'Tanpa login dan lintas UID ditolak'],
     ['Pengingat tugas', '2', '2', 'Notifikasi muncul 3 menit sebelum deadline; ketuk membuka Form Tugas'],
     ['Kurikulum, ruangan, peta', '6', '6', 'Semai kurikulum, ruangan jadwal, dropdown, isian otomatis, cari "205"; satu gagal awal (B-03)'],
+    ['Jadwal dan perubahan jadwal', '5', '5', 'Validasi jam, tambah jadwal, pindah ruang, ganti jam, batal, hapus perubahan dan jadwal'],
     ['Cuaca', '1', '1', 'Label basi salah (B-01), lulus setelah perbaikan'],
     ['APK release (R8)', '1', '1', 'Semua menu berjalan, tidak ada crash'],
-    ['**Jumlah**', '**25**', '**25**', 'Detail di `docs/TEST_CASE_MINGGU_03.md`'],
+    ['**Jumlah**', '**30**', '**30**', 'Detail di `docs/TEST_CASE_MINGGU_03.md`'],
   ], [28, 12, 10, 50]),
-  p('Unit test berjumlah **54 dan seluruhnya lulus**, termasuk 22 test baru untuk sinkronisasi (last-write-wins dua arah, baris yang berubah saat pengiriman tetap `PENDING`, data UID lain tidak terbaca), login, dan kecocokan data kurikulum dengan buku pedoman. Android Lint tidak menyisakan peringatan selain versi dependency yang sengaja dipertahankan. Uji yang belum dilakukan: HP fisik dan dua perangkat aktif bersamaan.', { before: 80 }),
+  p('Unit test berjumlah **54 dan seluruhnya lulus**, termasuk 22 test baru untuk sinkronisasi (last-write-wins dua arah, baris yang berubah saat pengiriman tetap `PENDING`, data UID lain tidak terbaca), login, dan kecocokan data kurikulum dengan buku pedoman. Android Lint tidak menyisakan peringatan selain versi dependency yang sengaja dipertahankan. Di emulator (laptop Celeron, grafis perangkat lunak) aplikasi terbuka dari nol dalam 3,5 sampai 3,7 detik dengan memori 85 MB; target 2 detik pada NFR-01 masih perlu dibuktikan di HP fisik. Uji yang belum dilakukan: HP fisik dan dua perangkat aktif bersamaan.', { before: 80 }),
 
   h1('6 Dokumentasi Akhir'),
   gallery([
