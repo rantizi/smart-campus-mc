@@ -28,8 +28,11 @@ Metode: black box di emulator (Android 11, API 30) dan white box lewat unit test
 | C20 | FR-02 | Form Jadwal, ketik "Data" di Mata kuliah | Dropdown: Data Mining, Data Warehouse, Sistem Database I/II, Struktur Data | Gagal (label bertumpuk dengan teks), lulus setelah gaya ExposedDropdownMenu | 11-dropdown-matkul.png |
 | C21 | FR-02 | Form Jadwal, pilih "Data Mining" dari dropdown | Sandi D10G.7201 dan SKS 3 terisi otomatis; dosen tetap kosong (tidak ada di kurikulum) | Lulus | 12-isian-otomatis.png |
 | C22 | FR-09 | Peta, cari "205", pilih PPBS A | Dua hasil (A dan B); peta berpusat ke Gedung A; kartu "PPBS A Ruang 205", lantai 2, kode portal | Lulus | 13-cari-ruangan.png |
+| C23 | FR-06 | Tugas dengan deadline 4 menit lagi, pengingat 3 menit | Notifikasi "Pengingat tugas" muncul 3 menit sebelum deadline (20.36.37 untuk deadline 20.39) | Lulus | 14-notifikasi-tugas.png |
+| C24 | FR-06 | Ketuk notifikasi pengingat | Form Tugas terbuka untuk tugas tersebut (deep link Safe Args) | Lulus | 15-deeplink-notifikasi.png |
+| C25 | FR-11 | Tandai mata kuliah terhapus langsung di Firestore (updated_at lebih baru), lalu sinkron di HP | Mata kuliah hilang dari dropdown (hapus lunak cloud ke perangkat, last-write-wins) | Lulus | |
 
-Tingkat keberhasilan akhir: 22 dari 22 skenario lulus. Tiga skenario (C06, C13, C20) gagal pada percobaan pertama dan lulus setelah perbaikan B-01, B-02, dan B-03.
+Tingkat keberhasilan akhir: 25 dari 25 skenario lulus. Tiga skenario (C06, C13, C20) gagal pada percobaan pertama dan lulus setelah perbaikan B-01, B-02, dan B-03.
 
 ## Optimasi dan analisis statis
 
@@ -53,6 +56,6 @@ Tingkat keberhasilan akhir: 22 dari 22 skenario lulus. Tiga skenario (C06, C13, 
 
 ## Belum diuji
 
-- HP fisik (performa, penghemat baterai, notifikasi di perangkat asli).
+- HP fisik (performa, penghemat baterai, notifikasi di perangkat asli). Notifikasi sudah lulus di emulator (C23, C24); uji A04/A05 minggu 2 (restart perangkat, izin notifikasi API 33+) belum.
 - Dua perangkat aktif bersamaan dengan akun yang sama (konflik nyata antarperangkat); logika last-write-wins hanya diuji di unit test.
 - `connectedDebugAndroidTest` (test Room di perangkat).
