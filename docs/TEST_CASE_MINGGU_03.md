@@ -31,8 +31,25 @@ Metode: black box di emulator (Android 11, API 30) dan white box lewat unit test
 | C23 | FR-06 | Tugas dengan deadline 4 menit lagi, pengingat 3 menit | Notifikasi "Pengingat tugas" muncul 3 menit sebelum deadline (20.36.37 untuk deadline 20.39) | Lulus | 14-notifikasi-tugas.png |
 | C24 | FR-06 | Ketuk notifikasi pengingat | Form Tugas terbuka untuk tugas tersebut (deep link Safe Args) | Lulus | 15-deeplink-notifikasi.png |
 | C25 | FR-11 | Tandai mata kuliah terhapus langsung di Firestore (updated_at lebih baru), lalu sinkron di HP | Mata kuliah hilang dari dropdown (hapus lunak cloud ke perangkat, last-write-wins) | Lulus | |
+| C26 | NFR-04 | Form Jadwal, jam mulai 10:00, jam selesai 08:00 | Pesan "Jam selesai harus setelah jam mulai", data tidak tersimpan | Lulus | |
+| C27 | FR-02 | Tambah jadwal Data Mining Senin 08:00-10:00, PPBS B Ruang 206 | Kartu tampil pada hari Senin dengan ruangannya | Lulus | |
+| C28 | FR-04 | Catat perubahan: pindah ruang (C 309), ganti jam (13:00-15:00), kelas batal | Kartu dan Beranda menampilkan status perubahan; form terisi data lama saat dibuka ulang | Lulus | |
+| C29 | FR-04 | Hapus perubahan pada tanggal itu; buka Senin berikutnya | Jadwal kembali reguler; Senin berikutnya tidak terpengaruh | Lulus | |
+| C30 | FR-02 | Menu jadwal, Hapus, konfirmasi | Dialog konfirmasi; jadwal hilang dari daftar (hapus lunak) | Lulus | |
 
-Tingkat keberhasilan akhir: 25 dari 25 skenario lulus. Tiga skenario (C06, C13, C20) gagal pada percobaan pertama dan lulus setelah perbaikan B-01, B-02, dan B-03.
+Tingkat keberhasilan akhir: 30 dari 30 skenario lulus. Tiga skenario (C06, C13, C20) gagal pada percobaan pertama dan lulus setelah perbaikan B-01, B-02, dan B-03.
+
+## Kinerja di emulator
+
+Emulator Android 11 x86_64, 2 GB RAM, grafis perangkat lunak (swiftshader), laptop Celeron N4020. Angka ini tidak mewakili HP fisik.
+
+| Ukuran | Hasil |
+|---|---|
+| Cold start `am start -W` (3 kali) | 3,71 / 3,56 / 3,45 detik (target NFR-01: 2 detik, belum terbukti di HP fisik) |
+| Memori setelah Beranda, Jadwal, Peta | PSS 85 MB (Java heap 14 MB, native heap 33 MB) |
+| Penyimpanan aplikasi | database 576 KB, cache tile peta 1,3 MB |
+| Notifikasi pengingat | Tepat waktu (selisih kurang dari 1 menit) |
+| Sinkron perubahan ke Firestore | Kurang dari 25 detik setelah disimpan |
 
 ## Optimasi dan analisis statis
 
