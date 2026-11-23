@@ -36,5 +36,25 @@ jobs:
           "$SDKMANAGER" 'platforms;android-35' 'build-tools;35.0.0'
       - name: Check architecture
         run: python3 scripts/verify_architecture.py
+      # Opsional: secret GOOGLE_SERVICES_JSON (isi file google-services.json) membuat APK CI
+      # memakai Firebase. Tanpa secret, APK tetap ter-build dalam mode lokal (docs/FIREBASE.md).
+      - name: Firebase config from secret
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$GOOGLE_SERVICES_JSON" > app/google-services.json
+            echo "Firebase config dipasang dari secret"
+          else
+            echo "Secret GOOGLE_SERVICES_JSON tidak ada; build mode lokal"
+          fi
       - name: Build, unit tests, lint and test APK
         run: bash ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest --console=plain
+      - name: Upload debug APK
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: padukampus-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: warn
+          retention-days: 14

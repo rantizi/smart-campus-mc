@@ -28,4 +28,6 @@ abstract class PaduKampusDatabase : RoomDatabase() {
     abstract fun tugasDao(): TugasDao
 
     abstract fun cuacaDao(): CuacaDao
+
+    abstract fun syncDao(): SyncDao
 }

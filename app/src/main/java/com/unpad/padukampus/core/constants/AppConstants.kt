@@ -11,5 +11,10 @@ object AppConstants {
     const val KEY_TASK_ID = "task_id"
     const val KEY_TASK_REVISION = "task_revision"
     const val SYNC_PENDING = "PENDING"
+    const val SYNC_SYNCED = "SYNCED"
+    const val SYNC_WORK_NAME = "cloud-sync"
+    const val SYNC_PERIODIC_WORK_NAME = "cloud-sync-periodic"
+    const val SYNC_PERIODIC_HOURS = 1L
+    const val MIN_PASSWORD_LENGTH = 6
     const val MAX_REMINDER_MINUTES = 525_600
 }

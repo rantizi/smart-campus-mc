@@ -1,0 +1,20 @@
+<resources>
+    <string name="auth_tagline">Jadwal, tugas, dan ruangan dalam satu aplikasi</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Kata sandi</string>
+    <string name="auth_password_helper">Minimal 6 karakter</string>
+    <string name="auth_login">Masuk</string>
+    <string name="auth_register">Daftar</string>
+    <string name="auth_loading">Memproses</string>
+    <string name="auth_switch_to_register">Belum punya akun? Daftar</string>
+    <string name="auth_switch_to_login">Sudah punya akun? Masuk</string>
+    <string name="auth_email_invalid">Format email tidak valid</string>
+    <string name="auth_password_short">Kata sandi minimal 6 karakter</string>
+    <string name="auth_error_credentials">Email atau kata sandi salah</string>
+    <string name="auth_error_email_used">Email sudah terdaftar. Silakan masuk.</string>
+    <string name="auth_error_weak_password">Kata sandi terlalu lemah</string>
+    <string name="auth_error_network">Tidak ada koneksi internet. Login memerlukan koneksi.</string>
+    <string name="auth_error_too_many">Terlalu banyak percobaan. Coba lagi beberapa saat lagi.</string>
+    <string name="auth_error_not_configured">Firebase belum dikonfigurasi pada build ini.</string>
+    <string name="auth_error_unknown">Login gagal. Coba lagi.</string>
+</resources>

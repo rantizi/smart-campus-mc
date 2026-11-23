@@ -11,7 +11,10 @@ required = {
     'core/util/DateTimeUtils.kt', 'core/util/NetworkMonitor.kt', 'core/constants/AppConstants.kt',
     'data/local/db/PaduKampusDatabase.kt', 'data/local/relation/JadwalDetail.kt', 'data/local/relation/TugasDetail.kt',
     'data/remote/api/OpenMeteoApi.kt', 'data/remote/dto/WeatherDto.kt', 'data/remote/sync/CloudSyncManager.kt',
-    'worker/TaskReminderWorker.kt', 'worker/TaskReminderScheduler.kt', 'worker/NotificationHelper.kt', 'ui/main/MainActivity.kt'
+    'worker/TaskReminderWorker.kt', 'worker/TaskReminderScheduler.kt', 'worker/NotificationHelper.kt', 'ui/main/MainActivity.kt',
+    # Minggu 3: Firebase Auth + Firestore (FR-01, FR-11)
+    'data/repository/AuthRepository.kt', 'data/local/dao/SyncDao.kt', 'data/remote/sync/SyncMapper.kt',
+    'data/remote/sync/SyncRemoteDataSource.kt', 'worker/SyncWorker.kt', 'core/util/AuthValidator.kt',
 }
 for entity in ['Gedung','Ruangan','MataKuliah','Jadwal','PerubahanJadwal','Tugas','CacheCuaca']:
     required.add(f'data/local/entity/{entity}Entity.kt')
@@ -23,7 +26,8 @@ for feature, names in {
                  'ScheduleFormFragment','ScheduleFormViewModel','ChangeFormFragment','ChangeFormViewModel'],
     'tasks':['TaskListFragment','TaskFormFragment','TaskViewModel','TaskUiState','TaskAdapter'],
     'map':['MapFragment','MapViewModel','MapUiState','RoomAdapter'],
-    'profile':['ProfileFragment','ProfileViewModel','ProfileUiState']
+    'profile':['ProfileFragment','ProfileViewModel','ProfileUiState'],
+    'auth':['LoginFragment','LoginViewModel','LoginUiState'],
 }.items():
     required.update(f'ui/{feature}/{name}.kt' for name in names)
 assert all((PACKAGE / name).is_file() for name in required), 'Required architecture files are missing'
@@ -43,7 +47,7 @@ android = '{http://schemas.android.com/apk/res/android}'
 graph = ET.parse(MAIN/'res/navigation/nav_graph.xml').getroot()
 destinations = graph.findall('fragment')
 ids = {node.attrib[android+'id'].split('/')[-1] for node in destinations}
-assert len(destinations) == 8  # 5 menu utama + Form Tugas, Form Jadwal, Form Perubahan
+assert len(destinations) == 9  # Login + 5 menu utama + Form Tugas, Form Jadwal, Form Perubahan
 menu = ET.parse(MAIN/'res/menu/bottom_navigation.xml').getroot()
 assert len(menu) == 5 and all(node.attrib[android+'id'].split('/')[-1] in ids for node in menu)
 for node in destinations:
@@ -80,4 +84,10 @@ for dependency in ['androidx.room:room-runtime:2.7.1', 'androidx.room:room-compi
 wrapper = (ROOT/'gradle/wrapper/gradle-wrapper.properties').read_text()
 assert 'gradle-8.11.1-bin.zip' in wrapper and 'distributionSha256Sum=' in wrapper
 assert 'fallbackToDestructiveMigration' not in (PACKAGE/'di/AppContainer.kt').read_text()
-print(f'PASS: {len(required)} required files, seven entities, MVVM boundaries, eight destinations, Safe Args, XML and build baseline.')
+# Firebase: konfigurasi proyek tidak di-commit, aturan keamanan Firestore ikut repository (NFR-03).
+assert 'google-services.json' in (ROOT/'.gitignore').read_text()
+rules = (ROOT/'firestore.rules').read_text()
+assert 'request.auth.uid == uid' in rules and 'allow delete: if false' in rules
+for path in (PACKAGE/'ui').rglob('*.kt'):
+    assert not re.search(r'import com\.google\.firebase', path.read_text()), path
+print(f'PASS: {len(required)} required files, seven entities, MVVM boundaries, nine destinations, Firebase boundaries, Safe Args, XML and build baseline.')

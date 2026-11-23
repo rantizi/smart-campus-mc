@@ -75,9 +75,14 @@ class HomeViewModel(
                         ),
                     cuaca = cuaca,
                     offline = !online,
+                    // Detak waktu bisa tertinggal hingga 30 detik dari saat cuaca diambil;
+                    // pakai jam terkini agar data yang baru diambil tidak dianggap basi.
                     cacheStale =
                         cached != null &&
-                            !DateTimeUtils.isCacheFresh(cached.diambilPada, instant.toEpochMilli()),
+                            !DateTimeUtils.isCacheFresh(
+                                cached.diambilPada,
+                                maxOf(instant.toEpochMilli(), clock.millis()),
+                            ),
                     message =
                         if (schedule is AppResult.Error)
                             UiText.Res(R.string.error_local_schedule_read)
