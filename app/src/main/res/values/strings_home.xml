@@ -10,7 +10,9 @@
     <string name="home_no_next_class">Tidak ada kelas berikutnya hari ini.</string>
     <string name="home_next_at">Kelas berikutnya · %1$s</string>
     <string name="home_weather_value">%1$s °C · %2$s</string>
-    <string name="home_rain_title">Peluang hujan per jam</string>
+    <string name="home_rain_value">Peluang hujan per jam\n%1$s</string>
+    <string name="home_rain_hour">%1$s  %2$s</string>
+    <string name="home_rain_percent">%1$d%%</string>
     <string name="home_old_cache">Data tersimpan sudah lebih dari 30 menit.</string>
     <string name="home_fetched_at">Diambil %1$s</string>
     <string name="home_refresh">Perbarui cuaca</string>

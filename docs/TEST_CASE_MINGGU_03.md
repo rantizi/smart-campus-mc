@@ -21,8 +21,17 @@ Metode: black box di emulator (Android 11, API 30) dan white box lewat unit test
 | C13 | NFR-02 | Buka Beranda setelah cuaca diambil | Label "lebih dari 30 menit" tidak muncul untuk data baru | Gagal (B-01), lulus setelah perbaikan | 03-beranda.png |
 | C14 | NFR-03 | REST tanpa login membaca `users/abc/tugas` | `PERMISSION_DENIED` | Lulus | |
 | C15 | NFR-03 | REST akun A menulis ke `users/{uid B}/tugas` | HTTP 403 | Lulus | |
+| C16 | Optimasi | APK release (R8 minify + shrink resources) diinstal, login, buka semua menu | Cuaca terbaca (Gson), data tertarik dari cloud, peta tampil, tidak ada crash | Lulus | 06-peta.png |
+| C17 | FR-08 | Buka Peta | Penanda gedung PPBS A sampai D memakai ikon gedung warna primer | Lulus | 06-peta.png |
 
-Tingkat keberhasilan akhir: 15 dari 15 skenario lulus. Dua skenario (C06, C13) gagal pada percobaan pertama dan lulus setelah perbaikan B-01 dan B-02.
+Tingkat keberhasilan akhir: 17 dari 17 skenario lulus. Dua skenario (C06, C13) gagal pada percobaan pertama dan lulus setelah perbaikan B-01 dan B-02.
+
+## Optimasi dan analisis statis
+
+| Pemeriksaan | Sebelum | Sesudah |
+|---|---|---|
+| Ukuran APK | 14,4 MB (debug, tanpa R8) | 3,6 MB (release, R8 + shrink resources), turun 75% |
+| Android Lint | 21 warning (15 versi dependency, 6 lain) | 16 warning, semuanya versi dependency yang sengaja dipertahankan |
 
 ## White box (unit test JVM)
 

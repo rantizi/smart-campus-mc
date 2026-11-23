@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -135,6 +136,7 @@ class MapFragment : Fragment(R.layout.fragment_map) {
                     title = gedung.nama
                     snippet = gedung.kode
                     setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    icon = ContextCompat.getDrawable(map.context, R.drawable.ic_marker_gedung)
                 }
             markers[gedung.id] = marker
             map.overlays.add(marker)

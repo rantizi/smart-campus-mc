@@ -134,7 +134,8 @@ class AppContainer(context: Context) {
                 }
                 tugasRepository.reconcileReminders()
                 syncScheduler.mulai()
-                Log.i(TAG, "Sinkron awal selesai: ${hasil.javaClass.simpleName}")
+                val status = if (hasil is AppResult.Success) "berhasil" else "gagal"
+                Log.i(TAG, "Sinkron awal selesai: $status")
             }
 
             override suspend fun kirimSebelumKeluar(): Int {

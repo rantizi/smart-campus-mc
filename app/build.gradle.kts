@@ -23,6 +23,18 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+    buildTypes {
+        release {
+            // Laporan 3 (optimasi dan keamanan): R8 menghapus kode/resource tak terpakai dan
+            // mengaburkan nama kelas. Aturan tambahan di proguard-rules.pro.
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro",
+            )
+        }
+    }
     kotlinOptions { jvmTarget = "17" }
     buildFeatures { viewBinding = true }
 }

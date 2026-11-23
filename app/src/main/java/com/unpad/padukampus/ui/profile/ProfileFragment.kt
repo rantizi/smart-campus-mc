@@ -83,7 +83,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                                 formatWaktu.format(Instant.ofEpochMilli(it)),
                             )
                         } ?: getString(R.string.profile_sync_never)
-                    getString(R.string.profile_sync_status, waktu, state.jumlahMenunggu)
+                    resources.getQuantityString(
+                        R.plurals.profile_sync_status,
+                        state.jumlahMenunggu,
+                        waktu,
+                        state.jumlahMenunggu,
+                    )
                 }
             }
         val jumlah = state.konfirmasiKeluar
@@ -91,7 +96,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             dialogKeluar =
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.profile_logout_confirm_title)
-                    .setMessage(getString(R.string.profile_logout_confirm_message, jumlah))
+                    .setMessage(
+                        resources.getQuantityString(
+                            R.plurals.profile_logout_confirm_message,
+                            jumlah,
+                            jumlah,
+                        )
+                    )
                     .setPositiveButton(R.string.profile_logout_confirm_positive) { _, _ ->
                         model.keluar(paksa = true)
                     }

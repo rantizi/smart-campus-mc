@@ -1,6 +1,7 @@
 package com.unpad.padukampus.data.remote.sync
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.unpad.padukampus.core.common.AppResult
 import com.unpad.padukampus.core.util.NetworkMonitor
 import com.unpad.padukampus.data.local.dao.SyncDao
@@ -63,11 +64,11 @@ class PrefsSyncStateStore(private val prefs: SharedPreferences) : SyncStateStore
     override fun batasAmbil(uid: String, koleksi: String) = prefs.getLong("ambil_${uid}_$koleksi", 0)
 
     override fun simpanBatasAmbil(uid: String, koleksi: String, nilai: Long) {
-        prefs.edit().putLong("ambil_${uid}_$koleksi", nilai).apply()
+        prefs.edit { putLong("ambil_${uid}_$koleksi", nilai) }
     }
 
     override fun simpanTerakhirSinkron(uid: String, waktu: Long) {
-        prefs.edit().putLong("terakhir_$uid", waktu).apply()
+        prefs.edit { putLong("terakhir_$uid", waktu) }
         _terakhir.value = waktu
     }
 
@@ -76,7 +77,7 @@ class PrefsSyncStateStore(private val prefs: SharedPreferences) : SyncStateStore
     }
 
     override fun bersihkan() {
-        prefs.edit().clear().apply()
+        prefs.edit { clear() }
         _terakhir.value = null
     }
 }
