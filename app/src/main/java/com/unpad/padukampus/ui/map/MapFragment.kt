@@ -97,12 +97,12 @@ class MapFragment : Fragment(R.layout.fragment_map) {
         val selected = state.terpilih
         ui.selectedCard.isVisible = selected != null
         if (selected != null) {
-            ui.selectedTitle.text = getString(R.string.map_room_title, selected.ruangan.kode)
+            ui.selectedTitle.text = getString(R.string.map_room_title, selected.ruangan.nama)
             ui.selectedDetail.text =
                 getString(
                     R.string.map_room_detail,
                     selected.gedung.nama,
-                    selected.gedung.kode,
+                    selected.ruangan.kode,
                     selected.ruangan.lantai,
                 )
             if (shownSelection != selected.ruangan.id) {

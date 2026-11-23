@@ -6,8 +6,8 @@
     <string name="map_no_rooms">Tidak ada ruangan yang sesuai.</string>
     <!-- Nama ruang · lantai · kode portal (0201-GGGG-RRRR, lihat KampusSeed). -->
     <string name="map_room_item">%1$s · Lantai %3$d · %2$s</string>
-    <string name="map_room_title">Ruang %1$s</string>
-    <string name="map_room_detail">%1$s (%2$s) · Lantai %3$d</string>
+    <string name="map_room_title">%1$s</string>
+    <string name="map_room_detail">%1$s · Lantai %3$d\nKode portal %2$s</string>
     <string name="map_close">Tutup</string>
     <string name="map_center">Pusatkan peta</string>
     <string name="map_tiles_offline">Tile peta butuh internet; info gedung dan ruangan tetap tersedia luring.</string>

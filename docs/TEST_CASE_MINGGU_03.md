@@ -25,9 +25,11 @@ Metode: black box di emulator (Android 11, API 30) dan white box lewat unit test
 | C17 | FR-08 | Buka Peta | Penanda gedung PPBS A sampai D memakai ikon gedung warna primer | Lulus | 06-peta.png |
 | C18 | FR-02 | Login akun lama (uji2) setelah pembaruan kurikulum | 62 mata kuliah kurikulum ditambahkan, 7 yang sudah ada tidak diduplikasi; Firestore 69 dokumen | Lulus | |
 | C19 | FR-03 | Buka Jadwal hari Selasa akun uji2 (jadwal dibuat sebelum data ruangan ada) | Ruangan terisi sesuai portal, misalnya "PPBS A Ruang 205 · Lantai 2"; `ruangan_id` di Firestore ikut terisi | Lulus | 10-jadwal-ruangan.png |
-| C20 | FR-02 | Form Jadwal, ketik "Data" di Mata kuliah | Dropdown: Data Mining, Data Warehouse, Sistem Database I/II, Struktur Data | Lulus (label bertumpuk, sudah diperbaiki; uji ulang tampilan tertunda) | |
+| C20 | FR-02 | Form Jadwal, ketik "Data" di Mata kuliah | Dropdown: Data Mining, Data Warehouse, Sistem Database I/II, Struktur Data | Gagal (label bertumpuk dengan teks), lulus setelah gaya ExposedDropdownMenu | 11-dropdown-matkul.png |
+| C21 | FR-02 | Form Jadwal, pilih "Data Mining" dari dropdown | Sandi D10G.7201 dan SKS 3 terisi otomatis; dosen tetap kosong (tidak ada di kurikulum) | Lulus | 12-isian-otomatis.png |
+| C22 | FR-09 | Peta, cari "205", pilih PPBS A | Dua hasil (A dan B); peta berpusat ke Gedung A; kartu "PPBS A Ruang 205", lantai 2, kode portal | Lulus | 13-cari-ruangan.png |
 
-Tingkat keberhasilan akhir: 20 dari 20 skenario lulus. Dua skenario (C06, C13) gagal pada percobaan pertama dan lulus setelah perbaikan B-01 dan B-02.
+Tingkat keberhasilan akhir: 22 dari 22 skenario lulus. Tiga skenario (C06, C13, C20) gagal pada percobaan pertama dan lulus setelah perbaikan B-01, B-02, dan B-03.
 
 ## Optimasi dan analisis statis
 
@@ -54,4 +56,3 @@ Tingkat keberhasilan akhir: 20 dari 20 skenario lulus. Dua skenario (C06, C13) g
 - HP fisik (performa, penghemat baterai, notifikasi di perangkat asli).
 - Dua perangkat aktif bersamaan dengan akun yang sama (konflik nyata antarperangkat); logika last-write-wins hanya diuji di unit test.
 - `connectedDebugAndroidTest` (test Room di perangkat).
-- Uji ulang tampilan dropdown setelah perbaikan label, isian otomatis sandi/SKS saat memilih mata kuliah, dan pencarian ruangan di Peta: emulator berulang kali dimatikan sistem karena RAM laptop habis.
