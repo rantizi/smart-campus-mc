@@ -29,6 +29,7 @@ Pada Linux/macOS gunakan `bash ./gradlew`. APK debug dihasilkan pada `app/build/
 | compileSdk / targetSdk / minSdk | 35 / 35 / 26 |
 | Room / Retrofit + Gson | 2.7.1 / 2.11.0 |
 | Navigation dan Safe Args / WorkManager | 2.8.9 / 2.10.0 |
+| Firebase BoM (Auth, Firestore) / google-services | 33.7.0 / 4.4.2 |
 
 Versi dipertahankan sesuai kesepakatan proyek. Rekomendasi pembaruan versi dari Lint tidak diterapkan otomatis. Gradle Wrapper resmi serta checksum distribusinya tetap disertakan.
 
@@ -51,6 +52,7 @@ app/src/main/java/com/unpad/padukampus/
     tasks/       # daftar/form, ViewModel, UiState dan adapter
     map/         # Fragment, ViewModel dan UiState
     profile/     # Fragment, ViewModel dan UiState
+    auth/        # Login/Daftar (FR-01)
 ```
 
 ## Perilaku yang disiapkan
@@ -60,7 +62,7 @@ app/src/main/java/com/unpad/padukampus/
 - **Cuaca**: masukkan koordinat terverifikasi melalui Profil. Repository menulis respons API ke Room; Beranda mengamati cache, tetap menampilkan data luring, dan memberi status cache lama. Tidak ada koordinat kampus fiktif atau izin lokasi perangkat.
 - **Pengingat**: unique work per UUID, pemeriksaan revisi/data terkini, penanganan izin notifikasi, dan deep link Safe Args. Waktu tampil tidak dijamin tepat oleh WorkManager; perilaku perangkat belum diuji.
 - **Peta**: osmdroid + OpenStreetMap dengan penanda dari tabel gedung dan pencarian ruangan lokal; data awal PPBS Gedung A–D (koordinat OpenStreetMap) ada di `data/local/seed/KampusSeed.kt`; kode ruangan menunggu jadwal resmi.
-- **Cloud**: interface/stub minggu 3, belum login atau sinkronisasi Firebase. Tidak ada API key atau kredensial yang dikarang.
+- **Login dan cloud (minggu 3)**: Firebase Authentication email/kata sandi dan sinkronisasi Firestore offline-first (`users/{uid}/...`, last-write-wins, WorkManager saat online). Logout menghapus data akun dari perangkat. Tanpa `app/google-services.json` aplikasi berjalan dalam mode lokal. Lihat [docs/FIREBASE.md](docs/FIREBASE.md).
 
 ## Bekerja bertiga
 
@@ -73,5 +75,7 @@ Dokumentasi lain:
 - [Test case dan batas verifikasi](docs/TEST_CASE_MINGGU_02.md)
 - [Rencana kerja minggu 2](docs/RENCANA_KERJA_MINGGU_02.md)
 - [Penyesuaian kode dengan Laporan 1](docs/PENYESUAIAN_LAPORAN_1.md)
+- [Firebase: project, aturan, alur sinkronisasi](docs/FIREBASE.md)
+- [Test case minggu 3](docs/TEST_CASE_MINGGU_03.md) dan [log bug minggu 3](docs/LOG_BUG_MINGGU_03.md)
 
 Laporan Word pada `output/minggu-02/laporan/` adalah snapshot sebelum refactor ini dan dipertahankan sebagai arsip. Jangan menganggap namespace, struktur, atau status build di snapshot tersebut sebagai keadaan kode terbaru.

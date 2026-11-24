@@ -73,4 +73,9 @@ class NotificationHelper(private val context: Context) {
     fun cancelTask(id: String) {
         NotificationManagerCompat.from(context).cancel(id, 1)
     }
+
+    fun cancelAll() {
+        NotificationManagerCompat.from(context).cancelAll()
+        delivered.edit { clear() }
+    }
 }

@@ -19,7 +19,6 @@
     <string name="schedule_delete_confirm">Hapus jadwal ini? Perubahan per tanggal ikut tidak ditampilkan.</string>
     <string name="schedule_no_room">Ruangan belum ditentukan</string>
     <string name="schedule_rooms_empty">Data ruangan belum diisi; jadwal tetap bisa disimpan tanpa ruangan.</string>
-    <string name="schedule_date_format">%1$s, %2$s</string>
 
     <string name="schedule_form_title">Form jadwal</string>
     <string name="schedule_form_edit_title">Ubah jadwal</string>

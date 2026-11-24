@@ -22,8 +22,8 @@ class RoomAdapter(private val select: (RuanganDetail) -> Unit) :
         holder.ui.label.text =
             holder.ui.root.context.getString(
                 R.string.map_room_item,
+                item.ruangan.nama,
                 item.ruangan.kode,
-                item.gedung.nama,
                 item.ruangan.lantai,
             )
         holder.ui.label.setOnClickListener { select(item) }

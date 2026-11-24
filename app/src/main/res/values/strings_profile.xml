@@ -1,8 +1,30 @@
 <resources>
-    <string name="profile_title">Profil dan pengaturan</string>
-    <string name="profile_local">Mode lokal. Login dan sinkronisasi Firebase belum tersedia. Isi koordinat kampus yang telah diverifikasi; aplikasi tidak meminta lokasi perangkat.</string>
+    <string name="profile_local">Koordinat dipakai untuk cuaca di Beranda. Aplikasi tidak meminta lokasi perangkat.</string>
+    <string name="profile_coordinates_title">Lokasi cuaca kampus</string>
     <string name="profile_latitude">Latitude kampus</string>
     <string name="profile_longitude">Longitude kampus</string>
     <string name="profile_save">Simpan koordinat</string>
-    <string name="profile_sync">Status sinkronisasi cloud</string>
+    <string name="profile_sync_title">Sinkronisasi</string>
+    <string name="profile_sync">Sinkronkan sekarang</string>
+    <string name="profile_sync_running">Menyinkronkan…</string>
+    <string name="profile_sync_done">Sinkronisasi selesai</string>
+    <string name="profile_sync_never">Belum pernah sinkron</string>
+    <string name="profile_sync_last">Terakhir sinkron %1$s</string>
+    <!-- Bahasa Indonesia tidak membedakan tunggal/jamak; plurals tetap dipakai agar mudah diterjemahkan. -->
+    <plurals name="profile_sync_status">
+        <item quantity="one">%1$s · %2$d menunggu</item>
+        <item quantity="other">%1$s · %2$d menunggu</item>
+    </plurals>
+    <string name="profile_sync_local_mode">Mode lokal: Firebase belum dikonfigurasi pada build ini. Data hanya tersimpan di perangkat.</string>
+    <string name="profile_account_hint">Data jadwal dan tugas tersimpan di perangkat dan dicadangkan ke akun ini.</string>
+    <string name="profile_account_local">Mode lokal</string>
+    <string name="profile_logout">Keluar (logout)</string>
+    <string name="profile_logout_running">Mengirim perubahan terakhir…</string>
+    <string name="profile_logout_confirm_title">Perubahan belum terkirim</string>
+    <plurals name="profile_logout_confirm_message">
+        <item quantity="one">%1$d perubahan belum tersimpan di cloud karena tidak ada koneksi. Jika keluar sekarang, perubahan itu akan hilang dari perangkat ini.</item>
+        <item quantity="other">%1$d perubahan belum tersimpan di cloud karena tidak ada koneksi. Jika keluar sekarang, perubahan itu akan hilang dari perangkat ini.</item>
+    </plurals>
+    <string name="profile_logout_confirm_positive">Tetap keluar</string>
+    <string name="profile_logout_confirm_negative">Batal</string>
 </resources>

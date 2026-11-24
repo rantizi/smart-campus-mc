@@ -1,0 +1,32 @@
+rules_version = '2';
+
+// NFR-03 Laporan 1: data cloud hanya bisa dibaca dan diubah pemilik akun (UID).
+// Struktur Tabel 6: users/{uid}/{mata_kuliah|jadwal|perubahan_jadwal|tugas}/{uuid}
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    // Dokumen kecil dengan metadata sinkronisasi; batasi ukuran agar tidak disalahgunakan.
+    function validDoc() {
+      return request.resource.data.size() <= 30
+        && request.resource.data.updated_at is int;
+    }
+
+    match /users/{uid}/{koleksi}/{docId} {
+      allow read: if isOwner(uid)
+        && koleksi in ['mata_kuliah', 'jadwal', 'perubahan_jadwal', 'tugas'];
+      allow create, update: if isOwner(uid)
+        && koleksi in ['mata_kuliah', 'jadwal', 'perubahan_jadwal', 'tugas']
+        && validDoc();
+      // Hapus permanen dari klien tidak dipakai (hapus lunak lewat is_deleted).
+      allow delete: if false;
+    }
+
+    // Selain path di atas, semuanya tertutup.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

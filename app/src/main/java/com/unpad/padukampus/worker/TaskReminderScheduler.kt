@@ -11,6 +11,9 @@ interface TaskReminderScheduler {
     fun schedule(task: TugasEntity)
 
     fun cancel(id: String)
+
+    /** Logout: semua pengingat akun sebelumnya dibatalkan. */
+    fun cancelAll()
 }
 
 class WorkManagerTaskReminderScheduler(
@@ -45,5 +48,10 @@ class WorkManagerTaskReminderScheduler(
     override fun cancel(id: String) {
         workManager.cancelUniqueWork(AppConstants.REMINDER_WORK_PREFIX + id)
         notifications.cancelTask(id)
+    }
+
+    override fun cancelAll() {
+        workManager.cancelAllWorkByTag(AppConstants.REMINDER_TAG)
+        notifications.cancelAll()
     }
 }

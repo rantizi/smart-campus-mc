@@ -62,6 +62,20 @@ interface JadwalDao {
     )
     suspend fun getPerubahan(jadwalId: String, tanggal: String): PerubahanJadwalEntity?
 
+    // Termasuk baris terhapus: mata kuliah kurikulum yang dihapus pengguna tidak disemai ulang.
+    @Query("SELECT EXISTS(SELECT 1 FROM mata_kuliah WHERE id = :id)")
+    suspend fun adaMataKuliahId(id: String): Boolean
+
+    @Query(
+        "SELECT * FROM jadwal WHERE mata_kuliah_id = :mataKuliahId AND hari = :hari " +
+            "AND jam_mulai = :jamMulai AND ruangan_id IS NULL AND is_deleted = 0"
+    )
+    suspend fun jadwalTanpaRuangan(
+        mataKuliahId: String,
+        hari: Int,
+        jamMulai: String,
+    ): List<JadwalEntity>
+
     @Upsert suspend fun simpanMataKuliah(value: MataKuliahEntity)
 
     @Upsert suspend fun simpanJadwal(value: JadwalEntity)

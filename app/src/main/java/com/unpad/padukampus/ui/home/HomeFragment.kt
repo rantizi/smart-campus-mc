@@ -1,7 +1,9 @@
 package com.unpad.padukampus.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -58,16 +60,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
             ui.rain.isVisible = state.hujanBerikutnya.isNotEmpty()
             ui.rain.text =
-                getString(R.string.home_rain_title) + "\n" +
-                    state.hujanBerikutnya.joinToString("   ") {
-                        "${it.waktu.toLocalTime()}  ${it.persen?.let { p -> "$p%" } ?: "—"}"
-                    }
-            ui.weatherMeta.text =
                 getString(
-                    R.string.home_fetched_at,
-                    DateTimeUtils.formatDeadline(weather.diambilPada),
-                ) +
-                    if (state.cacheStale) "\n${getString(R.string.home_old_cache)}" else ""
+                    R.string.home_rain_value,
+                    state.hujanBerikutnya.joinToString("   ") {
+                        getString(
+                            R.string.home_rain_hour,
+                            it.waktu.toLocalTime().toString(),
+                            it.persen?.let { p -> getString(R.string.home_rain_percent, p) } ?: "—",
+                        )
+                    },
+                )
+            // Tabel 5 Laporan 1: warna peringatan untuk peluang hujan tinggi (masalah 6).
+            val hujanTinggi = state.hujanBerikutnya.any { (it.persen ?: 0) >= HUJAN_TINGGI_PERSEN }
+            ui.rain.setBackgroundColor(
+                if (hujanTinggi) ContextCompat.getColor(requireContext(), R.color.pk_peringatan)
+                else Color.TRANSPARENT
+            )
+            ui.weatherMeta.text =
+                listOfNotNull(
+                        getString(
+                            R.string.home_fetched_at,
+                            DateTimeUtils.formatDeadline(weather.diambilPada),
+                        ),
+                        getString(R.string.home_old_cache).takeIf { state.cacheStale },
+                    )
+                    .joinToString("\n")
         } else {
             ui.weather.text =
                 when {
@@ -129,5 +146,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private companion object {
+        const val HUJAN_TINGGI_PERSEN = 70
     }
 }

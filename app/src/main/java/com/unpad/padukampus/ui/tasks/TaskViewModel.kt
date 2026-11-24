@@ -52,6 +52,14 @@ class TaskViewModel(
             savedState["reminder"] ?: "1440",
         )
 
+    /** Nama mata kuliah untuk dropdown Form Tugas; isian tetap boleh diketik bebas. */
+    val daftarMataKuliah: StateFlow<List<String>> =
+        repository
+            .observeMataKuliah()
+            .map { rows -> rows.map { it.nama } }
+            .catch { emit(emptyList()) }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
     private val _formState = MutableStateFlow(TaskFormUiState(draft = restoredDraft()))
     val formState: StateFlow<TaskFormUiState> = _formState.asStateFlow()
 

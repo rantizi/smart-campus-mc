@@ -1,6 +1,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
+    <!-- Gambar 2: "Sudah login?" diperiksa MainActivity; belum login diarahkan ke sini (FR-01). -->
+    <fragment android:id="@+id/loginFragment" android:name="com.unpad.padukampus.ui.auth.LoginFragment" android:label="@string/auth_login" />
     <fragment android:id="@+id/homeFragment" android:name="com.unpad.padukampus.ui.home.HomeFragment" android:label="@string/beranda">
         <action android:id="@+id/action_home_to_map" app:destination="@id/mapFragment"
             app:launchSingleTop="true" app:popUpTo="@id/homeFragment" />

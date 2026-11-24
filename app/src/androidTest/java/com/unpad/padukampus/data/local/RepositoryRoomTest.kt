@@ -36,6 +36,10 @@ class RepositoryRoomTest {
         override fun cancel(id: String) {
             cancelled += id
         }
+
+        override fun cancelAll() {
+            cancelled += "*"
+        }
     }
 
     @Before
