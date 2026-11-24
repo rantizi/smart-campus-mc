@@ -26,7 +26,7 @@ function runs(text, opts = {}) {
   while ((m = re.exec(text))) {
     if (m.index > last) out.push(new TextRun({ text: text.slice(last, m.index), font: FONT, ...opts }));
     const t = m[0];
-    if (t.startsWith('**')) out.push(new TextRun({ text: t.slice(2, -2), bold: true, font: FONT, ...opts }));
+    if (t.startsWith('**')) out.push(new TextRun({ text: t.slice(2, -2), font: FONT, ...opts, bold: true }));
     else out.push(new TextRun({ text: t.slice(1, -1), font: 'Courier New', size: (opts.size || 22) - 2 }));
     last = m.index + t.length;
   }
@@ -101,7 +101,7 @@ function size(buf) {
   throw new Error('ukuran gambar tidak terbaca');
 }
 const figure = (file, widthPx, text) => [
-  new Paragraph({ children: [image(file, widthPx)], alignment: AlignmentType.CENTER, spacing: { after: 0 }, keepNext: true }),
+  new Paragraph({ children: [image(file, widthPx)], alignment: AlignmentType.CENTER, spacing: { before: 140, after: 0 }, keepNext: true }),
   caption('Gambar', text),
 ];
 // Deretan screenshot berlabel dalam tabel tanpa garis.

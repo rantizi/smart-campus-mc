@@ -211,8 +211,8 @@ const stat = (s, name, x, y, w, big, label, color) => {
 // 7. Pengujian
 {
   const s = slide('ISI', 'Pengujian');
-  s.addText('Pengujian: semua skenario lulus', { placeholder: 'title' });
-  stat(s, 'Skenario black box', 0.5, 1.2, 2.8, '30/30', 'skenario black box di emulator Android 11', C.accent3);
+  s.addText('Pengujian: 29 dari 30 skenario lulus', { placeholder: 'title' });
+  stat(s, 'Skenario black box', 0.5, 1.2, 2.8, '29/30', 'skenario black box lulus di emulator Android 11', C.accent3);
   stat(s, 'Unit test', 3.5, 1.2, 2.8, '54', 'unit test JVM lulus, otomatis di CI', C.accent3);
   stat(s, 'Bug diperbaiki', 6.5, 1.2, 3.0, '3', 'bug ditemukan, diperbaiki, diuji ulang', C.accent4);
   const bugs = [
@@ -225,8 +225,8 @@ const stat = (s, name, x, y, w, big, label, color) => {
     ...bugs,
   ], { objectName: 'Tabel bug', x: 0.5, y: 2.85, w: 9.0, colW: [0.9, 4.0, 4.1], fontSize: 12, color: '1F1F1F', fontFace: 'Calibri',
     fill: { color: 'FFFFFF' }, border: { type: 'solid', pt: 0.75, color: 'C9D6E2' }, rowH: 0.42, valign: 'middle' });
-  s.addText('Belum diuji: HP fisik dan dua perangkat aktif bersamaan.', { objectName: 'Catatan uji', x: 0.5, y: 4.65, w: 9, h: 0.35, fontSize: 12, italic: true, color: C.accent5, margin: 0, isTextBox: true });
-  s.addNotes('Kami menguji 30 skenario black box di emulator, termasuk mode pesawat, isolasi akun, notifikasi, dan APK release. Semua lulus. Ada 54 unit test yang juga dijalankan otomatis di GitHub Actions. Tiga bug ditemukan dan diperbaiki, yang paling penting B-02: setelah login data kadang tidak ditarik karena coroutine ikut batal saat layar Login ditutup.');
+  s.addText('Perlu uji ulang: isolasi dua akun di emulator. Belum diuji: HP fisik dan dua perangkat bersamaan.', { objectName: 'Catatan uji', x: 0.5, y: 4.65, w: 9, h: 0.35, fontSize: 12, italic: true, color: C.accent5, margin: 0, isTextBox: true });
+  s.addNotes('Kami menguji 30 skenario black box di emulator, termasuk mode pesawat, notifikasi, dan APK release. Dua puluh sembilan lulus, satu yaitu isolasi akun di emulator perlu diulang karena dijalankan sebelum bug login diperbaiki. Isolasi di sisi server sudah terbukti: akses lintas akun ditolak. Ada 54 unit test yang juga dijalankan otomatis di GitHub Actions. Tiga bug ditemukan dan diperbaiki, yang paling penting B-02: setelah login data kadang tidak ditarik karena coroutine ikut batal saat layar Login ditutup.');
 }
 
 // 8. Optimasi dan keamanan

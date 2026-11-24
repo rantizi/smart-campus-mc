@@ -1,6 +1,6 @@
 # Log bug minggu 3
 
-Pengujian: emulator Android 11 (API 30, x86_64, profil Pixel 4), build debug `0.1.0`, Firebase `padukampus-mc`, 23 November 2026. Penguji: Fadhli (QA).
+Pengujian: emulator Android 11 (API 30, x86_64, profil Pixel 4), build debug `0.1.0`, Firebase `padukampus-mc`, 23 November 2026. Dijalankan lewat adb dengan bantuan Claude Code; perlu ditinjau QA.
 
 | ID | Temuan | Langkah reproduksi | Penyebab | Perbaikan | Status |
 |---|---|---|---|---|---|
